@@ -1,0 +1,33 @@
+{
+  "result":1,
+  "experience":{
+    "tits":{"BigTit":"尊贵体验 特价享受","SmallTit":"ENJOY SPECILAL OFFER NOBLE EXPERIENCE"},
+    "contents":[
+      {"img":"http://sbyun.com/skins2/images/pic-05.png","oldPrice":69,"newPrice":19.9,"sections":["自由选择便捷服务 安全透明官方保障","私人专属社保管家 让您省时省力省心"],"link":""},
+      {"img":"http://sbyun.com/skins2/images/pic-06.png","oldPrice":69,"newPrice":19.9,"sections":["降低企业用工风险 流程化一站式操作","超3000+企业使用 享受免费高效管理"],"link":""}
+    ]
+  },
+  "customer":{
+    "tits":{"BigTit":"我们以客户为中心","SmallTit":"CUSTOMER CENTRIC"},
+    "contents":[
+      {"img":"http://sbyun.com/skins2/images/icon-04.png","slogan":"服务覆盖广","paragraph":"覆盖全国五百多个城市，为您提供符合不同地区的社保政策服务"},
+      {"img":"http://sbyun.com/skins2/images/icon-05.png","slogan":"服务覆盖广","paragraph":"全方面专业团队，及时响应您的各种需求，高效保障您的切身利益"},
+      {"img":"http://sbyun.com/skins2/images/icon-06.png","slogan":"服务覆盖广","paragraph":"专享管家式的贴身服务，随时随地为您提供社保服务跟踪信息"}
+    ]
+  },
+  "compare":{
+    "tits":{"BigTit":"传统社保 VS 社保云","SmallTit":"SOCIAL SECURITY VS SHEIBAOYUN"},
+    "contents":["http://sbyun.com/skins2/images/pic-a1.png","http://sbyun.com/skins2/images/pic-a2.png","http://sbyun.com/skins2/images/pic-a3.png","http://sbyun.com/skins2/images/pic-a4.png","http://sbyun.com/skins2/images/pic-a5.png","http://sbyun.com/skins2/images/pic-a6.png"]
+  },
+  "partner":{
+    "tits":{"BigTit":"合作伙伴","SmallTit":"COOPERATION PARTNERS"},
+    "contents":[
+      {"name":"北京移数通电讯有限公司","logo":"http://sbyun.com/skins2/images/pic-c1.png"},
+      {"name":"北京移数通电讯有限公司","logo":"http://sbyun.com/skins2/images/pic-c1.png"},
+      {"name":"北京移数通电讯有限公司","logo":"http://sbyun.com/skins2/images/pic-c1.png"},
+      {"name":"北京移数通电讯有限公司","logo":"http://sbyun.com/skins2/images/pic-c1.png"},
+      {"name":"北京移数通电讯有限公司","logo":"http://sbyun.com/skins2/images/pic-c1.png"},
+      {"name":"北京移数通电讯有限公司","logo":"http://sbyun.com/skins2/images/pic-c1.png"}
+    ]
+  }
+}

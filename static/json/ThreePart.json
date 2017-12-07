@@ -1,0 +1,11 @@
+{
+  "result":1,
+  "threePartInfo":{
+    "tits":{"BigTit":"高效源于专业","SmallTit":"HEIGHT EFFICIENT  PROFESSIONAL"},
+    "contents":[
+      {"img":"http://sbyun.com/skins2/images/p-01.png","slogan":"换工作期间人员","paragraph":"如果您刚刚离职，还没有找到合适的工作，您可能需要个人保，方便快捷办理个人社保代缴，自由选择缴纳月数，让您永不断缴！"},
+      {"img":"http://sbyun.com/skins2/images/p-02.png","slogan":"自由职业者","paragraph":"如果您是一位自由职业者，您需要个人保，依托专业的服务团队，让您舒心又省心，为您节省宝贵时间，让您再无后顾之忧！"},
+      {"img":"http://sbyun.com/skins2/images/p-03.png","slogan":"初期创业者","paragraph":"如果您是一位创业弄潮儿，您需要个人保，方便快捷的申请操作，让您快速获得最优质的服务，让您的创业踏上风火轮！"}
+    ]
+  }
+}

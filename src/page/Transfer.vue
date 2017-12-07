@@ -1,0 +1,131 @@
+<template>
+  <div class="Transfer">
+    <BackBar></BackBar>
+    <div class="MainBox">
+      <Form ref="formTransfer" :model="formTransfer" :rules="ruleTransfer" :label-width="100">
+          <FormItem label="姓名" prop="name">
+              <Input type="text" v-model="formTransfer.name"></Input>
+          </FormItem>
+           <FormItem label="身份证号" prop="id_card">
+              <Input type="text" v-model="formTransfer.id_card"></Input>
+          </FormItem>
+          <FormItem label="工作单位" prop="work">
+              <Input type="text" v-model="formTransfer.work"></Input>
+          </FormItem>
+           <FormItem label="转入党支部" prop="transferMaster">
+              <Select v-model="formTransfer.transferMaster" style="width:200px">
+                  <Option v-for="item in MasterList" :value="item.XL" :key="item.ID">{{item.XL}}</Option>
+              </Select>
+          </FormItem>
+           <FormItem label="转出原因" prop="transferReason">
+              <Input type="text" v-model="formTransfer.transferReason"></Input>
+          </FormItem>
+          <FormItem>
+              <Button type="primary" @click="handleSubmit('formTransfer')">提交</Button>
+              <Button type="ghost" @click="handleReset('formTransfer')" style="margin-left: 8px">重置</Button>
+          </FormItem>
+      </Form>
+    </div>
+  </div> 
+
+
+
+  
+
+
+    
+    
+  
+
+
+</template>
+<script>
+import BackBar from '../components/BackBar'
+  export default{
+    data: function () {
+      return {
+        MasterList:[{'XL':'支部一',ID:1},{'XL':'支部二',ID:2}],
+        formTransfer: {
+                    name: '',
+                    id_card: '',
+                    work: '',
+                    transferMaster:'',
+                    transferReason:''
+        },
+        ruleTransfer: {
+            name: [
+                { required: true, message: '请输入姓名！', trigger: 'blur' }
+            ],
+            id_card: [
+                { required: true, message: '请输入身份证号！', trigger: 'blur' }
+            ],
+            work: [
+                { required: true, message: '请输入工作单位！', trigger: 'blur' }
+            ],
+            transferMaster: [
+                { required: true, message: '请选择转入党支部！', trigger: 'change' }
+            ],
+            transferReason: [
+                { required: true, message: '请输入转出原因！', trigger: 'blur' }
+            ],
+            
+        }
+      }
+    },
+    mounted: function () {
+      
+    },
+    created: function () {
+      
+    },
+    computed: {
+      
+    },
+    watch: {
+      
+    },
+    components: {
+      BackBar
+      
+
+    },
+    methods: {
+      handleSubmit (name) {
+          this.$refs[name].validate((valid) => {
+              if (valid) {
+                this.$Message.success('提交成功!')
+                // axios.post(R_PRE_URL+'/applyparty.do',Info
+                // ).then((res)=> {
+                //   switch(res.data){
+                //     case 0:
+                //     this.$Message.error('提交失败!')
+                //     break
+                //     case 1:
+                //     this.$Message.error('提交成功!')
+                //     this.$route.push({name:'登录'})
+                //     break
+                //     default
+                //     this.$Message.error('接口报错!')
+                //   }
+                // }).catch((error)=> {
+                //   console.log(error)
+                // })
+              } else {
+                  this.$Message.error('提交失败!');
+              }
+          })
+      },
+      handleReset (name) {
+          this.$refs[name].resetFields();
+      },
+    }
+  }
+</script>
+<style lang="scss">
+.Transfer{
+  .MainBox{
+    width: 80%;
+    margin: 20px auto;
+  }
+}
+</style>

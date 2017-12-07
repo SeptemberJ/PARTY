@@ -1,0 +1,138 @@
+{
+	"politicalVisageList":[
+		{
+			"value":"0",
+			"label":"中共党员"
+		},
+		{
+			"value":"1",
+			"label":"群众"
+		}
+	],
+	"maritalStatusList":[
+		{
+            "value": "0",
+            "label": "未婚"
+        },
+        {
+            "value": "1",
+            "label": "已婚"
+        },
+        {
+            "value": "2",
+            "label": "丧偶"
+        },
+        {
+            "value": "3",
+            "label": "离婚"
+        },
+        {
+            "value": "4",
+            "label": "未说明的婚姻状况"
+        }
+	],
+	"educationList":[
+		{
+            "value": "0",
+            "label": "博士"
+        },
+        {
+            "value": "1",
+            "label": "博士后"
+        },
+        {
+            "value": "2",
+            "label": "研究生"
+        },
+        {
+            "value": "3",
+            "label": "本科"
+        },
+        {
+            "value": "4",
+            "label": "大专"
+        },
+        {
+            "value": "5",
+            "label": "中专中技"
+        },
+        {
+            "value": "6",
+            "label": "技校"
+        },
+        {
+            "value": "7",
+            "label": "高中"
+        },
+        {
+            "value": "8",
+            "label": "职高"
+        },
+        {
+            "value": "9",
+            "label": "初中"
+        },
+        {
+            "value": "10",
+            "label": "小学"
+        },
+        {
+            "value": "11",
+            "label": "其他"
+        }
+	],
+	"heathStatusList":[
+		{
+            "value": "0",
+            "label": "健康或良好"
+        },
+        {
+            "value": "1",
+            "label": "一般或较弱"
+        },
+        {
+            "value": "2",
+            "label": "有慢性病"
+        },
+        {
+            "value": "3",
+            "label": "残疾"
+        }
+	],
+	"sexList":[
+		{
+            "value": "0",
+            "label": "男"
+        },
+        {
+            "value": "1",
+            "label": "女"
+        }
+	],
+	"nationList":[
+		{
+            "value": "0",
+            "label": "中国大陆"
+        },
+        {
+            "value": "1",
+            "label": "香港"
+        },
+        {
+            "value": "2",
+            "label": "澳门"
+        },
+        {
+            "value": "3",
+            "label": "台湾"
+        },
+        {
+            "value": "4",
+            "label": "美国"
+        },
+        {
+            "value": "5",
+            "label": "英国"
+        }
+	]
+}

@@ -1,0 +1,53 @@
+{
+  "result":1,
+  "experience":{
+    "tits":{"BigTit":"尊贵体验 特价享受","SmallTit":"ENJOY SPECILAL OFFER NOBLE EXPERIENCE"},
+    "contents":[
+      {"img":"http://sbyun.com/skins2/images/pic-05.png","oldPrice":69,"newPrice":19.9,"sections":["自由选择便捷服务 安全透明官方保障","私人专属社保管家 让您省时省力省心"],"link":""},
+      {"img":"http://sbyun.com/skins2/images/pic-06.png","oldPrice":69,"newPrice":19.9,"sections":["降低企业用工风险 流程化一站式操作","超3000+企业使用 享受免费高效管理"],"link":""}
+    ]
+  },
+  "superiority":{
+        "tits":{"BigTit":"品牌故事","SmallTit":"BRAND STORY"},
+        "contents":[
+          {"img":"https://www.gaopinimages.com/images-flow/home/registerBg.jpg","slogan":"线下服务已覆盖全国500+城市","paragraph":"首期线上开通上海、广州、深圳、武汉、长沙、重庆、杭州、天津八个一线大城市，后续开通各省会城市，并辐射二三线城市。做到全国钱上和线下同步数据、快捷线上办理。做到引领时代的真正的O2O互联网社保"},
+          {"img":"https://www.gaopinimages.com/images/home/contributor.jpg","slogan":"化繁为简，全方位服务","paragraph":"轻松实现资料提交和信息管理，化繁为简实现五险一金缴纳、增员、减员、基数变更、比例变更等全方位的社保公积金办理。"}
+        ]
+  },
+  "customer":{
+    "tits":{"BigTit":"我们的优势","SmallTit":"OUR ADVANCE"},
+    "contents":[
+      {"img":"https://gaopin-preview.bj.bcebos.com/133103051482.jpg@!420","slogan":"服务广泛","paragraph":"社保云拥有广阔的线下资源，首期将开通多个国内重点城市，陆续会上线各省会城市，逐步辐射至二三线城市，为各个地方提供专业优质的人力资源管理服务。"},
+      {"img":"https://gaopin-preview.bj.bcebos.com/133200441668.jpg@!420","slogan":"注重效率","paragraph":"如果您是一位自由职业者，您需要个人保，依托专业的服务团队，让您舒心又省心，为您节省宝贵时间，让您再无后顾之忧！"},
+      {"img":"https://gaopin-preview.bj.bcebos.com/133100296233.jpg@!420","slogan":"性价比高","paragraph":"如果您是一位创业弄潮儿，您需要个人保，方便快捷的申请操作，让您快速获得最优质的服务，让您的创业踏上风火轮！"},
+      {"img":"https://gaopin-preview.bj.bcebos.com/133103710275.jpg@!420","slogan":"人性关爱","paragraph":"如果您是一位创业弄潮儿，您需要个人保，方便快捷的申请操作，让您快速获得最优质的服务，让您的创业踏上风火轮！"}
+    ]
+  },
+  "partner":{
+    "tits":{"BigTit":"合作伙伴","SmallTit":"COOPERATION PARTNERS"},
+    "contents":[
+      {"name":"","logo":"http://sbyun.com/skins2/images/pic-c1.png"},
+      {"name":"","logo":"http://sbyun.com/skins2/images/pic-c2.png"},
+      {"name":"","logo":"http://sbyun.com/skins2/images/pic-c3.png"},
+      {"name":"","logo":"http://sbyun.com/skins2/images/pic-c4.png"},
+      {"name":"","logo":"http://sbyun.com/skins2/images/pic-c5.png"},
+      {"name":"","logo":"http://sbyun.com/skins2/images/pic-c6.png"},
+      {"name":"","logo":"http://sbyun.com/skins2/images/pic-c7.png"},
+      {"name":"","logo":"http://sbyun.com/skins2/images/pic-c8.png"},
+      {"name":"","logo":"http://sbyun.com/skins2/images/pic-c9.png"},
+      {"name":"","logo":"http://sbyun.com/skins2/images/pic-c10.png"}
+    ]
+  },
+  "contactInfo":{
+    "tits":{"BigTit":"联系我们","SmallTit":"CONTACT US"},
+      "contents":{
+        "img":"http://sbyun.com/skins2/images/About-04.png",
+        "enterprise":"广州红海人力资源集团股份有限公司",
+        "address":"广州市越秀区万福路137号3楼",
+        "tel":"400-0135-200",
+        "email":"shebaoyun@redsea888.com",
+        "resume":"前程无忧   智联招聘",
+        "subway":"乘地铁6号线, 在北京路下车(B口出),步行100米到"
+      }
+  }
+}
