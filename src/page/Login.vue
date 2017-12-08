@@ -13,22 +13,19 @@
                 <Button type="text" style="float: right" @click="GoApplication">还不是党员去申请</Button>
             </FormItem>
         </Form>
-       <!--  <Alert type="warning" v-if="feedback">
-            入党申请反馈结果
-            <template slot="desc">
-                {{feedback}}
-            </template>
-        </Alert> -->
       </div>
+      <Spin v-if="ifLoading"></Spin>
   </div> 
 </template>
 <script>
 import Vue from 'vue'
 import axios from 'axios'
 import BackBar from 'components/BackBar'
+import Spin from '../components/Spin'
   export default{
     data: function () {
       return {
+        ifLoading:false,
         feedback:'',
         formInline: {
             id_card: '',
@@ -53,18 +50,21 @@ import BackBar from 'components/BackBar'
       
     },
     components: {
-      BackBar
+      BackBar,
+      Spin
 
     },
     methods: {
       handleSubmit(name) {
           this.$refs[name].validate((valid) => {
               if (valid) {
+                this.ifLoading = true
                   axios.get(R_PRE_URL+'/dy.do?fscard='+this.formInline.id_card
                   ).then((res)=> {
                     const UserInfo = res.data
                     switch(UserInfo[0]){
                       case 0:
+                      this.ifLoading = false
                       let Info = {
                         user_Name:UserInfo[1][0].fname,
                         user_Master:UserInfo[1][0].partybranch,
@@ -90,6 +90,7 @@ import BackBar from 'components/BackBar'
                       this.$router.push({name:'党员中心'});
                       break
                       case 1:
+                      this.ifLoading = false
                       localStorage.setItem("user_Logined",true)
                       localStorage.setItem("user_ID",this.formInline.id_card)
                       localStorage.setItem("user_Name",UserInfo[1][0].fname)
@@ -104,6 +105,7 @@ import BackBar from 'components/BackBar'
                       this.$router.push({name:'党员中心'})
                       break
                       case 2:
+                      this.ifLoading = false
                       this.$Message.error('输入的身份证号有误或还为申请党员!');
                       break
 

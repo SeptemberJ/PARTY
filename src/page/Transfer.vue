@@ -26,26 +26,18 @@
           </FormItem>
       </Form>
     </div>
+    <Spin v-if="ifLoading"></Spin>
   </div> 
-
-
-
-  
-
-
-    
-    
-  
-
-
 </template>
 <script>
 import Vue from 'vue'
 import axios from 'axios'
 import BackBar from '../components/BackBar'
+import Spin from '../components/Spin'
   export default{
     data: function () {
       return {
+        ifLoading:false,
         MasterList:[],
         formTransfer: {
                     name: '',
@@ -93,7 +85,8 @@ import BackBar from '../components/BackBar'
       
     },
     components: {
-      BackBar
+      BackBar,
+      Spin
       
 
     },
@@ -103,17 +96,21 @@ import BackBar from '../components/BackBar'
               if (valid) {
                 console.log(this.formTransfer)
                 let DATA = {Info:this.formTransfer}
+                this.ifLoading = true
                 axios.post(R_PRE_URL+'/updateparty.do',DATA
                 ).then((res)=> {
                   switch(res.data){
                     case 0:
+                    this.ifLoading = false
                     this.$Message.error('提交失败!')
                     break
                     case 1:
+                    this.ifLoading = false
                     this.$Message.success('提交成功!')
                     this.$router.push({name:'党员中心'})
                     break
                     default:
+                    this.ifLoading = false
                     this.$Message.error('接口报错!')
                   }
                 }).catch((error)=> {

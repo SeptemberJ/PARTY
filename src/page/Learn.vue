@@ -8,27 +8,19 @@
         </Col>
       </Row>
     </div>
+    <Spin v-if="ifLoading"></Spin>
   </div> 
-
-
-
-  
-
-
-    
-    
-  
-
-
 </template>
 <script>
 import Vue from 'vue'
 import axios from 'axios'
 import BackBar from '../components/BackBar'
+import Spin from '../components/Spin'
 import {timestampToFormatTime} from '../util/utils'
   export default{
     data: function () {
       return {
+        ifLoading:true,
         columns1: [
               {
                   type: 'index',
@@ -59,6 +51,7 @@ import {timestampToFormatTime} from '../util/utils'
           Item.psdate = timestampToFormatTime(Item.psdate)
         })
         this.dataVideo = temp
+        this.ifLoading = false
       }).catch((error)=> {
         console.log(error)
       })
@@ -73,7 +66,8 @@ import {timestampToFormatTime} from '../util/utils'
       
     },
     components: {
-      BackBar
+      BackBar,
+      Spin
       
 
     },

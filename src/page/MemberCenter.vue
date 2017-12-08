@@ -87,15 +87,18 @@
         </Col>
       </Row> -->
     </div>
+    <Spin v-if="ifLoading"></Spin>
   </div>
 </template>
 <script>
 import Vue from 'vue'
 import axios from 'axios'
 import BackBar from 'components/BackBar'
+import Spin from '../components/Spin'
   export default{
     data: function () {
       return {
+        ifLoading:false,
         feedback:'',
         reportSource:'',
         FileName:''
@@ -120,7 +123,8 @@ import BackBar from 'components/BackBar'
       
     },
     components: {
-      BackBar
+      BackBar,
+      Spin
 
     },
     methods: {
@@ -170,6 +174,7 @@ import BackBar from 'components/BackBar'
       },
       //提交思想汇报
       submitReport(){
+        this.ifLoading = true
         let DATA = {
             id_card:this.$store.state.userInfo.IdCard,
             report:this.reportSource,
@@ -179,14 +184,17 @@ import BackBar from 'components/BackBar'
           ).then((res)=> {
             switch(res.data){
               case 0:
+              this.ifLoading = false
               this.$Message.error('提交失败!')
               break
               case 1:
+              this.ifLoading = false
               this.$Message.success('提交成功!')
               this.reportSource = ''
               this.FileName = ''
               break
               default:
+              this.ifLoading = false
               this.$Message.error('接口报错!')
             }
             
@@ -195,11 +203,13 @@ import BackBar from 'components/BackBar'
           })
       },
       GetMemberInfo(IDCARD){
+        this.ifLoading = true
         axios.get(R_PRE_URL+'/dy.do?fscard='+IDCARD
         ).then((res)=> {
           const UserInfo = res.data
           switch(UserInfo[0]){
             case 0:
+            this.ifLoading = false
             let Info = {
               user_Name:UserInfo[1][0].fname,
               user_Master:UserInfo[1][0].partybranch,
@@ -208,37 +218,39 @@ import BackBar from 'components/BackBar'
               user_Type:UserInfo[0]
             }
             localStorage.setItem("user_Logined",true)
-                      localStorage.setItem("user_Name",Info.user_Name)
-                      localStorage.setItem("user_Master",Info.user_Master)
-                      localStorage.setItem("user_JoinTime",Info.user_JoinTime)
-                      localStorage.setItem("user_LearnSituation",Info.user_LearnSituation)
-                      localStorage.setItem("user_ID",this.formInline.id_card)
-                      localStorage.setItem("user_Type",Info.user_Type)
-                      this.$store.state.ifLogined = true
-                      this.$store.state.userInfo.Name = Info.user_Name
-                      this.$store.state.userInfo.Master = Info.user_Master
-                      this.$store.state.userInfo.JoinTime = Info.user_JoinTime
-                      this.$store.state.userInfo.LearnSituation = Info.user_LearnSituation
-                      this.$store.state.userInfo.IdCard = this.formInline.id_card
-                      this.$store.state.userInfo.Type = Info.user_Type
-                      this.$Message.success('欢迎登录!')
-                      this.$router.push({name:'党员中心'});
-                      break
-                      case 1:
-                      localStorage.setItem("user_Logined",true)
-                      localStorage.setItem("user_ID",this.formInline.id_card)
-                      localStorage.setItem("user_Name",UserInfo[1][0].fname)
-                      localStorage.setItem("user_FeedBack",UserInfo[1][0].feedback)
-                      localStorage.setItem("user_Type",UserInfo[0])
-                      this.$store.state.ifLogined = true
-                      this.$store.state.userInfo.IdCard = this.formInline.id_card
-                      this.$store.state.userInfo.Name = UserInfo[1][0].fname
-                      this.$store.state.userInfo.FeedBack = UserInfo[1][0].feedback
-                      this.$store.state.userInfo.Type = UserInfo[0]
-                      this.$Message.success('欢迎登录!')
-                      this.$router.push({name:'党员中心'})
+            localStorage.setItem("user_Name",Info.user_Name)
+            localStorage.setItem("user_Master",Info.user_Master)
+            localStorage.setItem("user_JoinTime",Info.user_JoinTime)
+            localStorage.setItem("user_LearnSituation",Info.user_LearnSituation)
+            localStorage.setItem("user_ID",this.formInline.id_card)
+            localStorage.setItem("user_Type",Info.user_Type)
+            this.$store.state.ifLogined = true
+            this.$store.state.userInfo.Name = Info.user_Name
+            this.$store.state.userInfo.Master = Info.user_Master
+            this.$store.state.userInfo.JoinTime = Info.user_JoinTime
+            this.$store.state.userInfo.LearnSituation = Info.user_LearnSituation
+            this.$store.state.userInfo.IdCard = this.formInline.id_card
+            this.$store.state.userInfo.Type = Info.user_Type
+            this.$Message.success('欢迎登录!')
+            this.$router.push({name:'党员中心'});
+            break
+            case 1:
+            this.ifLoading = false
+            localStorage.setItem("user_Logined",true)
+            localStorage.setItem("user_ID",this.formInline.id_card)
+            localStorage.setItem("user_Name",UserInfo[1][0].fname)
+            localStorage.setItem("user_FeedBack",UserInfo[1][0].feedback)
+            localStorage.setItem("user_Type",UserInfo[0])
+            this.$store.state.ifLogined = true
+            this.$store.state.userInfo.IdCard = this.formInline.id_card
+            this.$store.state.userInfo.Name = UserInfo[1][0].fname
+            this.$store.state.userInfo.FeedBack = UserInfo[1][0].feedback
+            this.$store.state.userInfo.Type = UserInfo[0]
+            this.$Message.success('欢迎登录!')
+            this.$router.push({name:'党员中心'})
             break
             case 2:
+            this.ifLoading = false
             this.$Message.error('输入的身份证号有误或还为申请党员!');
             break
 
