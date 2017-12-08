@@ -14,7 +14,7 @@
           </FormItem>
            <FormItem label="转入党支部" prop="transferMaster">
               <Select v-model="formTransfer.transferMaster" style="width:200px">
-                  <Option v-for="item in MasterList" :value="item.XL" :key="item.ID">{{item.XL}}</Option>
+                  <Option v-for="item in MasterList" :value="item.fparty" :key="item.id">{{item.fparty}}</Option>
               </Select>
           </FormItem>
            <FormItem label="转出原因" prop="transferReason">
@@ -40,11 +40,13 @@
 
 </template>
 <script>
+import Vue from 'vue'
+import axios from 'axios'
 import BackBar from '../components/BackBar'
   export default{
     data: function () {
       return {
-        MasterList:[{'XL':'支部一',ID:1},{'XL':'支部二',ID:2}],
+        MasterList:[],
         formTransfer: {
                     name: '',
                     id_card: '',
@@ -76,6 +78,12 @@ import BackBar from '../components/BackBar'
       
     },
     created: function () {
+      axios.get(R_PRE_URL+'/selectpartybranch.do'
+      ).then((res)=> {
+        this.MasterList = res.data
+      }).catch((error)=> {
+        console.log(error)
+      })
       
     },
     computed: {
@@ -93,25 +101,31 @@ import BackBar from '../components/BackBar'
       handleSubmit (name) {
           this.$refs[name].validate((valid) => {
               if (valid) {
-                this.$Message.success('提交成功!')
-                // axios.post(R_PRE_URL+'/applyparty.do',Info
-                // ).then((res)=> {
-                //   switch(res.data){
-                //     case 0:
-                //     this.$Message.error('提交失败!')
-                //     break
-                //     case 1:
-                //     this.$Message.error('提交成功!')
-                //     this.$route.push({name:'登录'})
-                //     break
-                //     default
-                //     this.$Message.error('接口报错!')
-                //   }
-                // }).catch((error)=> {
-                //   console.log(error)
-                // })
+                console.log(this.formTransfer)
+                let DATA = {Info:this.formTransfer}
+                axios.post(R_PRE_URL+'/updateparty.do',DATA
+                ).then((res)=> {
+                  switch(res.data){
+                    case 0:
+                    this.$Message.error('提交失败!')
+                    break
+                    case 1:
+                    this.$Message.success('提交成功!')
+                    this.$router.push({name:'党员中心'})
+                    break
+                    default:
+                    this.$Message.error('接口报错!')
+                  }
+                }).catch((error)=> {
+                  console.log(error)
+                })
               } else {
-                  this.$Message.error('提交失败!');
+                // this.$Message.error({
+                //     content: '提交失败',
+                //     top: 70
+                // })
+                
+                  this.$Message.error('带*号的为必填项!');
               }
           })
       },
@@ -124,8 +138,8 @@ import BackBar from '../components/BackBar'
 <style lang="scss">
 .Transfer{
   .MainBox{
-    width: 80%;
-    margin: 20px auto;
+    width: 90%;
+    margin: 70px auto;
   }
 }
 </style>

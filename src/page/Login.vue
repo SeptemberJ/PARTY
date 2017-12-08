@@ -13,23 +13,12 @@
                 <Button type="text" style="float: right" @click="GoApplication">还不是党员去申请</Button>
             </FormItem>
         </Form>
-        <Alert type="warning" v-if="feedback">
+       <!--  <Alert type="warning" v-if="feedback">
             入党申请反馈结果
             <template slot="desc">
                 {{feedback}}
             </template>
-        </Alert>
-        <!-- <Form ref="formLogin" :model="formLogin" :rules="ruleInline" inline>
-          <FormItem prop="user">
-              <Input type="text" v-model="formLogin.idCard" placeholder="请输入身份证号">
-                  <Icon type="ios-person-outline" slot="prepend"></Icon>
-              </Input>
-          </FormItem>
-          <FormItem>
-              <Button type="primary" @click="handleSubmit('formLogin')">登录</Button>
-              <Button type="text">还不是党员去申请</Button>
-          </FormItem>
-          </Form> -->
+        </Alert> -->
       </div>
   </div> 
 </template>
@@ -74,28 +63,45 @@ import BackBar from 'components/BackBar'
                   axios.get(R_PRE_URL+'/dy.do?fscard='+this.formInline.id_card
                   ).then((res)=> {
                     const UserInfo = res.data
-                    switch(UserInfo.type){
+                    switch(UserInfo[0]){
                       case 0:
                       let Info = {
-                        user_Name:UserInfo.info[0].fname,
-                        user_Master:UserInfo.info[0].partybranch,
-                        user_JoinTime:UserInfo.info[0].partydate,
-                        user_LearnSituation:'已完成'
+                        user_Name:UserInfo[1][0].fname,
+                        user_Master:UserInfo[1][0].partybranch,
+                        user_JoinTime:UserInfo[1][0].partydate,
+                        user_LearnSituation:'已完成',
+                        user_Type:UserInfo[0]
                       }
+                      localStorage.setItem("user_Logined",true)
                       localStorage.setItem("user_Name",Info.user_Name)
                       localStorage.setItem("user_Master",Info.user_Master)
                       localStorage.setItem("user_JoinTime",Info.user_JoinTime)
                       localStorage.setItem("user_LearnSituation",Info.user_LearnSituation)
+                      localStorage.setItem("user_ID",this.formInline.id_card)
+                      localStorage.setItem("user_Type",Info.user_Type)
                       this.$store.state.ifLogined = true
                       this.$store.state.userInfo.Name = Info.user_Name
                       this.$store.state.userInfo.Master = Info.user_Master
                       this.$store.state.userInfo.JoinTime = Info.user_JoinTime
                       this.$store.state.userInfo.LearnSituation = Info.user_LearnSituation
+                      this.$store.state.userInfo.IdCard = this.formInline.id_card
+                      this.$store.state.userInfo.Type = Info.user_Type
                       this.$Message.success('欢迎登录!')
-                      this.$router.push({name:'首页'});
+                      this.$router.push({name:'党员中心'});
                       break
                       case 1:
-                      this.feedback = UserInfo.info[0].feedback
+                      localStorage.setItem("user_Logined",true)
+                      localStorage.setItem("user_ID",this.formInline.id_card)
+                      localStorage.setItem("user_Name",UserInfo[1][0].fname)
+                      localStorage.setItem("user_FeedBack",UserInfo[1][0].feedback)
+                      localStorage.setItem("user_Type",UserInfo[0])
+                      this.$store.state.ifLogined = true
+                      this.$store.state.userInfo.IdCard = this.formInline.id_card
+                      this.$store.state.userInfo.Name = UserInfo[1][0].fname
+                      this.$store.state.userInfo.FeedBack = UserInfo[1][0].feedback
+                      this.$store.state.userInfo.Type = UserInfo[0]
+                      this.$Message.success('欢迎登录!')
+                      this.$router.push({name:'党员中心'})
                       break
                       case 2:
                       this.$Message.error('输入的身份证号有误或还为申请党员!');
@@ -109,7 +115,7 @@ import BackBar from 'components/BackBar'
                   
                   
               } else {
-                  this.$Message.error('您目前还不是党员!');
+                  this.$Message.error('请输入身份证号!');
               }
 
           })
@@ -124,7 +130,7 @@ import BackBar from 'components/BackBar'
 .MemberCenter{
   .LoginBox{
     width: 50%;
-    margin: 40px auto;
+    margin: 70px auto 0 auto;
   }
 
 }

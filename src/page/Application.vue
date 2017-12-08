@@ -2,7 +2,7 @@
   <div class="Application">
     <BackBar></BackBar>
     <div class="MainBox">
-      <Form ref="formApplication" :model="formApplication" :rules="ruleApplication" :label-width="80">
+      <Form ref="formApplication" :model="formApplication" :rules="ruleApplication" :label-width="100">
           <FormItem label="姓名" prop="name">
               <Input type="text" v-model="formApplication.name"></Input>
           </FormItem>
@@ -12,33 +12,42 @@
               <Radio label="女">女</Radio>
             </RadioGroup>
           </FormItem>
+          <FormItem label="籍贯" prop="origin">
+              <Input type="text" v-model="formApplication.origin"></Input>
+          </FormItem>
           <FormItem label="民族" prop="nation">
               <Input type="text" v-model="formApplication.nation"></Input>
+          </FormItem>
+           <FormItem label="参加工作时间" prop="workTime">
+              <DatePicker type="date" placeholder="请选择参加工作时间" v-model="formApplication.workTime" ></DatePicker>
           </FormItem>
           <FormItem label="身份证号" prop="id_card">
               <Input type="text" v-model="formApplication.id_card"></Input>
           </FormItem>
-          <FormItem label="工作单位" prop="work">
-              <Input type="text" v-model="formApplication.work"></Input>
-          </FormItem>
-          <FormItem label="职务" prop="position">
-              <Input type="text" v-model="formApplication.position"></Input>
-          </FormItem>
-          <FormItem label="手机号" prop="phone">
-              <Input type="text" v-model="formApplication.phone"></Input>
-          </FormItem>
-          <FormItem label="出生日期" prop="birthday">
-              <DatePicker type="date" placeholder="" v-model="formApplication.birthday"></DatePicker>
-          </FormItem>
-          <FormItem label="学历" prop="education">
-              <Select v-model="formApplication.education" style="width:200px">
-                  <Option v-for="item in educationList" :value="item.XL" :key="item.ID">{{item.XL}}</Option>
-              </Select>
-          </FormItem>
           <FormItem label="家庭住址" prop="address">
               <Input type="text" v-model="formApplication.address"></Input>
           </FormItem>
-          <FormItem label="思想汇报" prop="report">
+          <FormItem label="学历" prop="education">
+              <Select v-model="formApplication.education" style="width:200px">
+                  <Option v-for="item in educationList" :value="item.xl" :key="item.id">{{item.xl}}</Option>
+              </Select>
+          </FormItem>
+          <FormItem label="学校" prop="school">
+              <Input type="text" v-model="formApplication.school"></Input>
+          </FormItem>
+          <FormItem label="入学时间" prop="entryTime">
+              <DatePicker type="date" placeholder="请选择入学时间" v-model="formApplication.entryTime"></DatePicker>
+          </FormItem>
+          <FormItem label="毕业时间" prop="graduationTime">
+              <DatePicker type="date" placeholder="请选择毕业时间" v-model="formApplication.graduationTime"></DatePicker>
+          </FormItem>
+          <FormItem label="入党介绍人1" prop="introducer">
+              <Input type="text" v-model="formApplication.introducer1" style="width:200px"></Input>
+          </FormItem>
+          <FormItem label="入党介绍人2" prop="introducer">
+              <Input type="text" v-model="formApplication.introducer2" style="width:200px"></Input>
+          </FormItem>
+          <!-- <FormItem label="思想汇报" prop="report">
               <Row>
                 <Col span="10">
                   <Upload
@@ -60,7 +69,7 @@
                   </Upload>
                 </Col>
               </Row>
-          </FormItem>
+          </FormItem> -->
           
           <FormItem>
               <Button type="primary" @click="handleSubmit('formApplication')">提交</Button>
@@ -92,15 +101,17 @@ import BackBar from '../components/BackBar'
         formApplication: {
                     name: '',
                     sex: '',
+                    origin:'',
                     nation: '',
+                    workTime:'',
                     id_card: '',
-                    work: '',
-                    position: '',
-                    phone: '',
-                    birthday: '',
-                    education: '',
                     address: '',
-                    report: 'static/img/picture.png',
+                    education: '',
+                    school: '',
+                    entryTime: '',
+                    graduationTime: '',
+                    introducer1: '',
+                    introducer2: '',
         },
         ruleApplication: {
             name: [
@@ -109,32 +120,38 @@ import BackBar from '../components/BackBar'
             sex: [
                 { required: true, message: '请选择性别！', trigger: 'change' }
             ],
+            origin: [
+                { required: true, message: '请输入籍贯！', trigger: 'blur' }
+            ],
             nation: [
                 { required: true, message: '请输入民族！', trigger: 'blur' }
+            ],
+            workTime: [
+                { required: true, type: 'date', message: '请选择参加工作时间！', trigger: 'change' }
             ],
             id_card: [
                 { required: true, message: '请输入身份证号！', trigger: 'blur' }
             ],
-            work: [
-                { required: true, message: '请输入工作单位！', trigger: 'blur' }
-            ],
-            position: [
-                { required: true, message: '请输入职务！', trigger: 'blur' }
-            ],
-            phone: [
-                { required: true, message: '请输入手机号！', trigger: 'blur' }
-            ],
-            birthday: [
-                { required: true, type: 'date', message: '请选择出生日期！', trigger: 'change' }
+            address: [
+                { required: true, message: '请输入家庭住址！', trigger: 'blur' }
             ],
             education: [
                 { required: true, message: '请选择学历！', trigger: 'change' }
             ],
-            address: [
-                { required: true, message: '请输入家庭住址！', trigger: 'blur' }
+            school: [
+                { required: true, message: '请输入学校！', trigger: 'blur' }
             ],
-            report: [
-                { required: true, message: '请上传思想汇报！', trigger: 'blur' }
+            entryTime: [
+                { required: true, type: 'date', message: '请选择入学时间！', trigger: 'change' }
+            ],
+            graduationTime: [
+                { required: true, type: 'date', message: '请选择毕业时间！', trigger: 'change' }
+            ],
+            introducer1: [
+                { required: true, message: '请输入介绍人1！', trigger: 'blur' }
+            ],
+            introducer2: [
+                { required: true, message: '请输入介绍人2！', trigger: 'blur' }
             ],
         },
         defaultList: [
@@ -148,7 +165,7 @@ import BackBar from '../components/BackBar'
     mounted: function () {
       
     },
-    created: function () {
+    created() {
       axios.get(R_PRE_URL+'/xl.do'
       ).then((res)=> {
         this.educationList = res.data
@@ -173,30 +190,32 @@ import BackBar from '../components/BackBar'
           this.$refs[name].validate((valid) => {
               if (valid) {
                 let reg = /^1[34578]\d{9}$/
-                let Info = this.formApplication
-                if (!reg.test(Info.phone)) {
-                    this.$Message.error('手机号格式不对!')
-                    return
-                } 
-                this.$Message.success('Success!')
-                axios.post(R_PRE_URL+'/applyparty.do',Info
+                //let DATA = this.formApplication
+                
+                let DATA = {'Info':this.formApplication}
+                console.log(DATA)
+                // if (!reg.test(DATA.phone)) {
+                //     this.$Message.error('手机号格式不对!')
+                //     return
+                // } 
+                axios.post(R_PRE_URL+'/applyparty.do?',DATA
                 ).then((res)=> {
-                  // switch(res.data){
-                  //   case 0:
-                  //   this.$Message.error('提交失败!')
-                  //   break
-                  //   case 1:
-                  //   this.$Message.error('提交成功!')
-                  //   this.$route.push({name:'登录'})
-                  //   break
-                  //   default
-                  //   this.$Message.error('接口报错!')
-                  // }
+                  switch(res.data){
+                    case 0:
+                    this.$Message.error('提交失败!')
+                    break
+                    case 1:
+                    this.$Message.error('提交成功!')
+                    this.$router.push({name:'登录'})
+                    break
+                    default:
+                    this.$Message.error('接口报错!')
+                  }
                 }).catch((error)=> {
                   console.log(error)
                 })
               } else {
-                  this.$Message.error('Fail!');
+                  this.$Message.error('带*号的为必填项!');
               }
           })
       },
@@ -244,8 +263,8 @@ import BackBar from '../components/BackBar'
 <style lang="scss">
 .Application{
   .MainBox{
-    width: 80%;
-    margin: 20px auto;
+    width: 90%;
+    margin: 70px auto;
   }
   demo-upload-list{
         display: inline-block;

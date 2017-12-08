@@ -8,6 +8,7 @@ import Login from '../page/Login'
 import Transfer from '../page/Transfer'
 import Application from '../page/Application'
 import Learn from '../page/Learn'
+import VideoDetail from '../page/VideoDetail'
 import {deviceInfo} from "../util/device"
 
 Vue.use(VueRouter)
@@ -22,6 +23,7 @@ const routes = [
     {path: '/Transfer', name: '党组织接转', component: Transfer},
     {path: '/Application', name: '入党申请', component: Application},
     {path: '/Learn', name: '三会一课', component: Learn},
+    {path: '/VideoDetail/:id', name: '详情', component: VideoDetail},
     {path: '/MemberCenter', name: '党员中心', component: MemberCenter},
       {path:'*', redirect: '/Index'}
       // {path: '/article/:id', name: 'article', component: Article},

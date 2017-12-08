@@ -1,6 +1,7 @@
 <template>
   <div class="BackBar" @click="Back">
-    <Icon type="chevron-left" size="18"></Icon>
+    <Icon type="chevron-left" size="16"></Icon>
+    <span class="NavTxt">{{activeRoute}}</span>
   </div> 
 
 
@@ -28,6 +29,9 @@
       
     },
     computed: {
+      activeRoute(){
+        return this.$store.state.activeRoute
+      }
       
     },
     watch: {
@@ -49,8 +53,16 @@
   background: #495060;
   width: 100%;
   height: 42px;
+  position: fixed;
+  top: 0;
+  left: 0;
   padding-left: 10px;
-  padding-top: 12px;
+  line-height: 42px;
   color: #fff;
+  z-index: 999999;
+  .NavTxt{
+    height:100%;
+    margin-left: 20px;
+  }
 }
 </style>

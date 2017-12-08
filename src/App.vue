@@ -17,6 +17,10 @@
       
     },
     created: function () {
+      this.$Message.config({
+          top: 70,
+          duration: 1.5
+      });
       
     },
     computed: {
