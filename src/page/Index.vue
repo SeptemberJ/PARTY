@@ -4,23 +4,23 @@
       <Row>
         <Col :xs="{ span: 4, offset: 0 }" class="ModuleItem">
           <img class="ModuleImg" src="static/img/Transfer.png" @click="GoToModule('OutLink')">
-          <p @click="GoToModule('OutLink')">十九大思维导图</p>
+          <p @click="GoToModule('OutLink')">十九大丰硕成果</p>
         </Col>
         <Col :xs="{ span: 4, offset: 1 }" class="ModuleItem">
           <img class="ModuleImg" src="static/img/Transfer.png" @click="GoToModule('Transfer')">
-          <p @click="GoToModule('Transfer')">党组织接转</p>
+          <p @click="GoToModule('Application')">入党申请初审</p>
         </Col>
         <Col :xs="{ span: 5, offset: 1 }" class="ModuleItem">
           <img class="ModuleImg" src="static/img/Transfer.png" @click="GoToModule('Login')">
-          <p @click="GoToModule('Login')">党员中心</p>
+          <p @click="GoToModule('Transfer')">组织关系接转</p>
         </Col>
         <Col :xs="{ span: 4, offset: 1 }" class="ModuleItem">
           <img class="ModuleImg" src="static/img/Transfer.png" @click="GoToModule('Application')">
-          <p @click="GoToModule('Application')">入党申请</p>
+          <p @click="GoToModule('Learn')">三会一课</p>
         </Col>
         <Col :xs="{ span: 4, offset: 0 }" class="ModuleItem" >
           <img class="ModuleImg" src="static/img/Transfer.png" @click="GoToModule('Learn')">
-          <p @click="GoToModule('Learn')">三会一课</p>
+          <p @click="GoToModule('Login')">党员中心</p>
         </Col>
     </Row>
     </div>
