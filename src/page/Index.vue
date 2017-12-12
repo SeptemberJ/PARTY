@@ -3,24 +3,24 @@
     <div class="FiveModule">
       <Row>
         <Col :xs="{ span: 4, offset: 0 }" class="ModuleItem">
-          <img class="ModuleImg" src="static/img/Transfer.png" @click="GoToModule('OutLink')">
-          <p @click="GoToModule('OutLink')">十九大丰硕成果</p>
+          <img class="ModuleImg" src="static/img/OutLink.jpg" @click="GoToModule('OutLink')">
+          <!-- <p @click="GoToModule('OutLink')">十九大丰硕成果</p> -->
         </Col>
         <Col :xs="{ span: 4, offset: 1 }" class="ModuleItem">
-          <img class="ModuleImg" src="static/img/Transfer.png" @click="GoToModule('Transfer')">
-          <p @click="GoToModule('Application')">入党申请初审</p>
+          <img class="ModuleImg" src="static/img/Application.jpg" @click="GoToModule('Application')">
+          <!-- <p @click="GoToModule('Application')">入党申请初审</p> -->
         </Col>
         <Col :xs="{ span: 5, offset: 1 }" class="ModuleItem">
-          <img class="ModuleImg" src="static/img/Transfer.png" @click="GoToModule('Login')">
-          <p @click="GoToModule('Transfer')">组织关系接转</p>
+          <img class="ModuleImg" src="static/img/Transfer.jpg" @click="GoToModule('Transfer')">
+          <!-- <p @click="GoToModule('Transfer')">组织关系接转</p> -->
         </Col>
         <Col :xs="{ span: 4, offset: 1 }" class="ModuleItem">
-          <img class="ModuleImg" src="static/img/Transfer.png" @click="GoToModule('Application')">
-          <p @click="GoToModule('Learn')">三会一课</p>
+          <img class="ModuleImg" src="static/img/Learn.jpg" @click="GoToModule('Learn')">
+          <!-- <p @click="GoToModule('Learn')">三会一课</p> -->
         </Col>
         <Col :xs="{ span: 4, offset: 0 }" class="ModuleItem" >
-          <img class="ModuleImg" src="static/img/Transfer.png" @click="GoToModule('Learn')">
-          <p @click="GoToModule('Login')">党员中心</p>
+          <img class="ModuleImg" src="static/img/Center.jpg" @click="GoToModule('Login')">
+          <!-- <p @click="GoToModule('Login')">党员中心</p> -->
         </Col>
     </Row>
     </div>
@@ -131,8 +131,14 @@
     margin-top: 240px;
   }
   .ModuleImg{
-    width: 50%;
-    height: auto;
+      width: 50%;
+      height: auto;
+    }
+  @media screen and (max-width:768px){
+    .ModuleImg{
+      width: 90%;
+      height: auto;
+    }
   }
   
   
