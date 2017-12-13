@@ -85,6 +85,7 @@ import Vue from 'vue'
 import axios from 'axios'
 import BackBar from '../components/BackBar'
 import Spin from '../components/Spin'
+import * as Moment from 'moment'
   export default{
     data: function () {
       return {
@@ -183,8 +184,12 @@ import Spin from '../components/Spin'
           this.$refs[name].validate((valid) => {
               if (valid) {
                 let reg = /^1[34578]\d{9}$/
-                //let DATA = this.formApplication
-                
+                var arr = ['entryTime','graduationTime','workTime']
+                arr.map((Item,Idx)=>{
+                    if(this.formApplication[Item]){
+                        this.formApplication[Item] = Moment(this.formApplication[Item]).add(1,'days')
+                    }
+                })
                 let DATA = {'Info':this.formApplication}
                 console.log(DATA)
                 // if (!reg.test(DATA.phone)) {
