@@ -187,7 +187,8 @@ import * as Moment from 'moment'
                 var arr = ['entryTime','graduationTime','workTime']
                 arr.map((Item,Idx)=>{
                     if(this.formApplication[Item]){
-                        this.formApplication[Item] = Moment(this.formApplication[Item]).add(1,'days')
+                        this.formApplication[Item] = Moment(this.formApplication[Item]).utc().add(8,'hours')
+                        //this.formApplication[Item] = Moment(this.formApplication[Item]).add(1,'days')
                     }
                 })
                 let DATA = {'Info':this.formApplication}
