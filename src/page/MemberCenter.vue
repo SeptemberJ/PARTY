@@ -1,6 +1,7 @@
 <template>
   <div class="MemberCenter">
     <BackBar></BackBar>
+    <PullRefresh :on-refresh="onRefresh" :on-infinite="onInfinite" :dataList="scrollData">
     <div class="InfoBox">
       <Row class="marginT_10">
         <Col span="12" class="TextRight"><b>姓名：</b></Col>
@@ -15,13 +16,14 @@
         <Col span="12" class="TextLeft">{{userInfo.JoinTime}}</Col>
       </Row>
       <Row class="marginT_10" v-if="Type==1">
-        <!-- <Col span="24" class="TextLeft"><b>入党时间：</b></Col> -->
+        <Col span="12" class="TextRight"><b>目前身份：</b></Col>
+        <Col span="12" class="TextLeft">{{userInfo.SF}}</Col>
+      </Row>
+      <Row class="marginT_10" v-if="Type==1">
         <Col span="24">
           <Alert type="warning" v-if="Type==1">
             {{userInfo.FeedBack==''?'暂无入党申请反馈结果':userInfo.FeedBack}}
-            <!-- <template slot="desc">
-                {{userInfo.FeedBack==''?'暂无反馈结果':userInfo.FeedBack}}
-            </template> -->
+            
           </Alert>
         </Col>
       </Row>
@@ -87,6 +89,7 @@
         </Col>
       </Row> -->
     </div>
+    </PullRefresh>
     <Spin v-if="ifLoading"></Spin>
   </div>
 </template>
@@ -95,13 +98,17 @@ import Vue from 'vue'
 import axios from 'axios'
 import BackBar from 'components/BackBar'
 import Spin from '../components/Spin'
+import PullRefresh from '../components/PullRefresh'
   export default{
     data: function () {
       return {
         ifLoading:false,
         feedback:'',
         reportSource:'',
-        FileName:''
+        FileName:'',
+        scrollData: {
+            noFlag: false //暂无更多数据显示
+        }
       }
     },
     mounted: function () {
@@ -124,10 +131,20 @@ import Spin from '../components/Spin'
     },
     components: {
       BackBar,
-      Spin
+      Spin,
+      PullRefresh
 
     },
     methods: {
+      onRefresh(done) {
+          this.GetMemberInfo(this.$store.state.userInfo.IdCard);
+          done(); // call done
+
+      },
+      onInfinite(done) {
+        this.GetMemberInfo(this.$store.state.userInfo.IdCard);
+        done();
+      },
       // 退出登录
       LoginOut(){
         localStorage.clear()
@@ -206,6 +223,7 @@ import Spin from '../components/Spin'
         this.ifLoading = true
         axios.get(R_PRE_URL+'/dy.do?fscard='+IDCARD
         ).then((res)=> {
+
           const UserInfo = res.data
           switch(UserInfo[0]){
             case 0:
@@ -222,14 +240,14 @@ import Spin from '../components/Spin'
             localStorage.setItem("user_Master",Info.user_Master)
             localStorage.setItem("user_JoinTime",Info.user_JoinTime)
             localStorage.setItem("user_LearnSituation",Info.user_LearnSituation)
-            localStorage.setItem("user_ID",this.formInline.id_card)
+            //localStorage.setItem("user_ID",this.formInline.id_card)
             localStorage.setItem("user_Type",Info.user_Type)
             this.$store.state.ifLogined = true
             this.$store.state.userInfo.Name = Info.user_Name
             this.$store.state.userInfo.Master = Info.user_Master
             this.$store.state.userInfo.JoinTime = Info.user_JoinTime
             this.$store.state.userInfo.LearnSituation = Info.user_LearnSituation
-            this.$store.state.userInfo.IdCard = this.formInline.id_card
+            //this.$store.state.userInfo.IdCard = this.formInline.id_card
             this.$store.state.userInfo.Type = Info.user_Type
             this.$Message.success('欢迎登录!')
             this.$router.push({name:'党员中心'});
@@ -237,17 +255,21 @@ import Spin from '../components/Spin'
             case 1:
             this.ifLoading = false
             localStorage.setItem("user_Logined",true)
-            localStorage.setItem("user_ID",this.formInline.id_card)
+            //localStorage.setItem("user_ID",this.formInline.id_card)
             localStorage.setItem("user_Name",UserInfo[1][0].fname)
             localStorage.setItem("user_FeedBack",UserInfo[1][0].feedback)
             localStorage.setItem("user_Type",UserInfo[0])
+            localStorage.setItem("user_SF",UserInfo[1][0].dangyuanzt)
             this.$store.state.ifLogined = true
-            this.$store.state.userInfo.IdCard = this.formInline.id_card
+            //this.$store.state.userInfo.IdCard = this.formInline.id_card
             this.$store.state.userInfo.Name = UserInfo[1][0].fname
             this.$store.state.userInfo.FeedBack = UserInfo[1][0].feedback
             this.$store.state.userInfo.Type = UserInfo[0]
+            this.$store.state.userInfo.SF = UserInfo[1][0].dangyuanzt
             this.$Message.success('欢迎登录!')
-            this.$router.push({name:'党员中心'})
+            //this.$router.push({name:'党员中心'})
+            console.log(this.userInfo)
+            console.log(this.$store.state.userInfo)
             break
             case 2:
             this.ifLoading = false
@@ -284,5 +306,10 @@ import Spin from '../components/Spin'
   }
 .ivu-upload-drag{
     border:0px solid #ccc !important;
+  }
+  @media screen and (max-width: 767px) {
+    .InfoBox{
+      width: 80% !important;
+    }
   }
 </style>

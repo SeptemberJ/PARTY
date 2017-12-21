@@ -139,4 +139,9 @@ import Spin from '../components/Spin'
     margin: 70px auto;
   }
 }
+@media screen and (max-width: 767px) {
+    .MainBox{
+      margin-left: 0px !important;
+    }
+  }
 </style>

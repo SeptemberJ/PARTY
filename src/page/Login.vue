@@ -96,17 +96,19 @@ import Spin from '../components/Spin'
                       localStorage.setItem("user_Name",UserInfo[1][0].fname)
                       localStorage.setItem("user_FeedBack",UserInfo[1][0].feedback)
                       localStorage.setItem("user_Type",UserInfo[0])
+                      localStorage.setItem("user_SF",UserInfo[1][0].dangyuanzt)
                       this.$store.state.ifLogined = true
                       this.$store.state.userInfo.IdCard = this.formInline.id_card
                       this.$store.state.userInfo.Name = UserInfo[1][0].fname
                       this.$store.state.userInfo.FeedBack = UserInfo[1][0].feedback
                       this.$store.state.userInfo.Type = UserInfo[0]
+                      this.$store.state.userInfo.SF = UserInfo[1][0].dangyuanzt
                       this.$Message.success('欢迎登录!')
                       this.$router.push({name:'党员中心'})
                       break
                       case 2:
                       this.ifLoading = false
-                      this.$Message.error('输入的身份证号有误或还为申请党员!');
+                      this.$Message.error('输入的身份证号有误或还未申请党员!');
                       break
 
                     }

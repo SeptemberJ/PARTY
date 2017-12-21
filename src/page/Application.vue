@@ -47,6 +47,11 @@
           <FormItem label="入党介绍人2" prop="introducer">
               <Input type="text" v-model="formApplication.introducer2" style="width:200px"></Input>
           </FormItem>
+          <FormItem label="党组织" prop="partybranch">
+              <Select v-model="formApplication.partybranch" style="width:200px">
+                  <Option v-for="item in organizationList" :value="item.fparty" :key="item.id">{{item.fparty}}</Option>
+              </Select>
+          </FormItem>
           <!-- <FormItem label="思想汇报" prop="report">
               <Row>
                 <Col span="10">
@@ -72,8 +77,8 @@
           </FormItem> -->
           
           <FormItem>
-              <Button type="primary" @click="handleSubmit('formApplication')">提交</Button>
-              <Button type="ghost" @click="handleReset('formApplication')" style="margin-left: 8px">重置</Button>
+              <Button :disabled="ifCanChange" type="primary" @click="handleSubmit('formApplication')">提交</Button>
+              <Button :disabled="ifCanChange" type="ghost" @click="handleReset('formApplication')" style="margin-left: 8px">重置</Button>
           </FormItem>
       </Form>
     </div>
@@ -85,12 +90,16 @@ import Vue from 'vue'
 import axios from 'axios'
 import BackBar from '../components/BackBar'
 import Spin from '../components/Spin'
+import {timestampToFormatTime} from '../util/utils'
+
 import * as Moment from 'moment'
   export default{
     data: function () {
       return {
         ifLoading:false,
+        ifCanChange:'', //是否显示提交按钮
         educationList:[],
+        organizationList:[],
         formApplication: {
                     name: '',
                     sex: '',
@@ -105,6 +114,7 @@ import * as Moment from 'moment'
                     graduationTime: '',
                     introducer1: '',
                     introducer2: '',
+                    partybranch:''
         },
         ruleApplication: {
             name: [
@@ -146,6 +156,9 @@ import * as Moment from 'moment'
             introducer2: [
                 { required: true, message: '请输入介绍人2！', trigger: 'blur' }
             ],
+            partybranch: [
+                { required: true, message: '请选择党支部！', trigger: 'blur' }
+            ],
         },
         defaultList: [
         'https://o5wwk8baw.qnssl.com/a42bdcc1178e62b4694c830f028db5c0/avatar'
@@ -162,6 +175,39 @@ import * as Moment from 'moment'
       axios.get(R_PRE_URL+'/xl.do'
       ).then((res)=> {
         this.educationList = res.data
+      }).catch((error)=> {
+        console.log(error)
+      })
+      axios.get(R_PRE_URL+'/selectpartybranch.do'
+      ).then((res)=> {
+        this.organizationList = res.data
+      }).catch((error)=> {
+        console.log(error)
+      })
+      //获取填写的申请资料
+      axios.get(R_PRE_URL+'/information.do?fscard='+localStorage.getItem("user_ID")
+      ).then((res)=> {
+        if(res.data.length>0){
+          this.ifCanChange = true
+          this.formApplication.name = res.data[0].fname
+          this.formApplication.sex = res.data[0].fsex
+          this.formApplication.origin = res.data[0].fjg
+          this.formApplication.nation = res.data[0].fmz
+          this.formApplication.workTime = timestampToFormatTime(res.data[0].cjgzdate)
+          this.formApplication.id_card = res.data[0].fscard
+          this.formApplication.address = res.data[0].faddress
+          this.formApplication.education = res.data[0].xl
+          this.formApplication.school = res.data[0].fxx
+          this.formApplication.entryTime = timestampToFormatTime(res.data[0].rxdate)
+          this.formApplication.graduationTime = timestampToFormatTime(res.data[0].bydate)
+          this.formApplication.introducer1 = res.data[0].rdjsr.split(",")[0]
+          this.formApplication.introducer2 = res.data[0].rdjsr.split(",")[1]
+          this.formApplication.partybranch = res.data[0].partybranch
+        }else{
+          this.ifCanChange=false
+        }
+        
+        
       }).catch((error)=> {
         console.log(error)
       })
@@ -187,7 +233,7 @@ import * as Moment from 'moment'
                 var arr = ['entryTime','graduationTime','workTime']
                 arr.map((Item,Idx)=>{
                     if(this.formApplication[Item]){
-                        this.formApplication[Item] = Moment(this.formApplication[Item]).utc().add(8,'hours')
+                        this.formApplication[Item] = Moment(this.formApplication[Item]).utc().add(0,'hours')
                         //this.formApplication[Item] = Moment(this.formApplication[Item]).add(1,'days')
                     }
                 })
@@ -312,4 +358,9 @@ import * as Moment from 'moment'
     }
   
 }
+@media screen and (max-width: 767px) {
+    .MainBox{
+      margin-left: 0px !important;
+    }
+  }
 </style>

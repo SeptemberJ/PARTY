@@ -2,11 +2,13 @@
   <div class="Learn">
     <BackBar></BackBar>
     <div class="LearnBox">
+    <PullRefresh :on-refresh="onRefresh" :on-infinite="onInfinite" :dataList="scrollData">
       <Row>
         <Col span="24">
           <Table :highlight-row="true" :columns="columns1" :data="dataVideo" :show-header="false" @on-current-change="chooseRow"></Table>
         </Col>
       </Row>
+    </PullRefresh>
     </div>
     <Spin v-if="ifLoading"></Spin>
   </div> 
@@ -37,29 +39,21 @@ import {timestampToFormatTime} from '../util/utils'
                   align:'right'
               }
           ],
-        dataVideo: []
+        dataVideo: [],
+        
       }
     },
     mounted: function () {
       
     },
     created: function () {
-      axios.get(R_PRE_URL+'/selectvideotitle.do'
-      ).then((res)=> {
-        let temp = res.data
-        temp.map((Item,Idx)=>{
-          Item.psdate = timestampToFormatTime(Item.psdate)
-        })
-        this.dataVideo = temp
-        this.ifLoading = false
-      }).catch((error)=> {
-        console.log(error)
-      })
+      this.getList()
 
       
       
     },
     computed: {
+
       
     },
     watch: {
@@ -67,14 +61,27 @@ import {timestampToFormatTime} from '../util/utils'
     },
     components: {
       BackBar,
-      Spin
+      Spin,
       
 
     },
     methods: {
+      getList(){
+        axios.get(R_PRE_URL+'/selectvideotitle.do'
+        ).then((res)=> {
+          let temp = res.data
+          temp.map((Item,Idx)=>{
+            Item.psdate = timestampToFormatTime(Item.psdate)
+          })
+          this.dataVideo = temp
+          this.ifLoading = false
+        }).catch((error)=> {
+          console.log(error)
+        })
+      },
       chooseRow(event){
         this.$router.push({name:'详情',params: {id:event.id}})
-      }
+      },
     }
   }
 </script>
