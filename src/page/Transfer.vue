@@ -107,7 +107,7 @@ import Spin from '../components/Spin'
                     case 1:
                     this.ifLoading = false
                     this.$Message.success('提交成功!')
-                    this.$router.push({name:'党员中心'})
+                    this.$router.push({name:'首页'})
                     break
                     default:
                     this.ifLoading = false
@@ -117,11 +117,6 @@ import Spin from '../components/Spin'
                   console.log(error)
                 })
               } else {
-                // this.$Message.error({
-                //     content: '提交失败',
-                //     top: 70
-                // })
-                
                   this.$Message.error('带*号的为必填项!');
               }
           })

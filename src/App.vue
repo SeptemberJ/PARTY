@@ -21,6 +21,9 @@
           top: 70,
           duration: 1.5
       });
+      this.$Notice.config({
+          top: 70
+      });
       
     },
     computed: {

@@ -6,9 +6,13 @@ import Index from '../page/Index'
 import MemberCenter from '../page/MemberCenter'
 import Login from '../page/Login'
 import Transfer from '../page/Transfer'
+import TransferPre from '../page/Transfer_pre'
 import Application from '../page/Application'
+import ApplicationPre from '../page/Application_pre'
 import Learn from '../page/Learn'
 import VideoDetail from '../page/VideoDetail'
+import FindOrganization from '../page/FindOrganization'
+import FindOrganizationPre from '../page/FindOrganization_pre'
 import {deviceInfo} from "../util/device"
 
 Vue.use(VueRouter)
@@ -20,11 +24,15 @@ const routes = [
     children: [
     {path: '/Index', name: '首页', component: Index},
     {path: '/Login', name: '登录', component: Login},
-    {path: '/Transfer', name: '党组织接转', component: Transfer},
-    {path: '/Application', name: '入党申请', component: Application},
+    {path: '/TransferPre', name: '组织关系接转', component: TransferPre},
+    {path: '/Transfer', name: '组织关系接转资料填写', component: Transfer},
+    {path: '/ApplicationPre', name: '入党申请', component: ApplicationPre},
+    {path: '/Application', name: '入党申请资料填写', component: Application},
     {path: '/Learn', name: '三会一课', component: Learn},
     {path: '/VideoDetail/:id', name: '详情', component: VideoDetail},
     {path: '/MemberCenter', name: '党员中心', component: MemberCenter},
+    {path: '/FindOrganizationPre', name: '流动党员找组织', component: FindOrganizationPre},
+    {path: '/FindOrganization', name: '流动党员找组织资料填写', component: FindOrganization},
       {path:'*', redirect: '/Index'}
       // {path: '/article/:id', name: 'article', component: Article},
     ]

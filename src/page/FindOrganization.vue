@@ -1,58 +1,50 @@
 <template>
-  <div class="Application">
+  <div class="FindOrganization">
     <BackBar></BackBar>
     <div class="MainBox">
-      <Form ref="formApplication" :model="formApplication" :rules="ruleApplication" :label-width="100">
+      <Form ref="formFindOrganization" :model="formFindOrganization" :rules="ruleformFindOrganization" :label-width="100">
           <FormItem label="姓名" prop="name">
-              <Input type="text" v-model="formApplication.name"></Input>
+              <Input type="text" v-model="formFindOrganization.name"></Input>
           </FormItem>
           <FormItem label="性别" prop="sex">
-            <RadioGroup v-model="formApplication.sex">
+            <RadioGroup v-model="formFindOrganization.sex">
               <Radio label="男">男</Radio>
               <Radio label="女">女</Radio>
             </RadioGroup>
           </FormItem>
-          <FormItem label="籍贯" prop="origin">
-              <Input type="text" v-model="formApplication.origin"></Input>
-          </FormItem>
           <FormItem label="民族" prop="nation">
-              <Input type="text" v-model="formApplication.nation"></Input>
-          </FormItem>
-           <FormItem label="参加工作时间" prop="workTime">
-              <DatePicker type="date" placeholder="请选择参加工作时间" v-model="formApplication.workTime" ></DatePicker>
+              <Input type="text" v-model="formFindOrganization.nation"></Input>
           </FormItem>
           <FormItem label="身份证号" prop="id_card">
-              <Input type="text" v-model="formApplication.id_card"></Input>
+              <Input type="text" v-model="formFindOrganization.id_card"></Input>
           </FormItem>
-          <FormItem label="家庭住址" prop="address">
-              <Input type="text" v-model="formApplication.address"></Input>
+          <FormItem label="原组织名称" prop="OldOrg">
+              <Input type="text" v-model="formFindOrganization.OldOrg"></Input>
+          </FormItem>
+          <FormItem label="转入组织名称" prop="JoinOrg">
+              <Input type="text" v-model="formFindOrganization.JoinOrg"></Input>
           </FormItem>
           <FormItem label="学历" prop="education">
-              <Select v-model="formApplication.education" style="width:200px">
+              <Select v-model="formFindOrganization.education" style="width:200px">
                   <Option v-for="item in educationList" :value="item.xl" :key="item.id">{{item.xl}}</Option>
               </Select>
           </FormItem>
-          <FormItem label="学校" prop="school">
-              <Input type="text" v-model="formApplication.school"></Input>
+          <FormItem label="手机号" prop="phone">
+              <Input type="text" v-model="formFindOrganization.phone"></Input>
           </FormItem>
-          <FormItem label="入学时间" prop="entryTime">
-              <DatePicker type="date" placeholder="请选择入学时间" v-model="formApplication.entryTime"></DatePicker>
+          <FormItem label="单位职务" prop="position">
+              <Input type="text" v-model="formFindOrganization.position"></Input>
           </FormItem>
-          <FormItem label="毕业时间" prop="graduationTime">
-              <DatePicker type="date" placeholder="请选择毕业时间" v-model="formApplication.graduationTime"></DatePicker>
+          <FormItem label="党费缴纳时间" prop="payDate">
+              <DatePicker type="date" placeholder="请选择入学时间" v-model="formFindOrganization.payDate"></DatePicker>
           </FormItem>
-          <FormItem label="入党介绍人1" prop="introducer">
-              <Input type="text" v-model="formApplication.introducer1" style="width:200px"></Input>
+          <FormItem label="入党时间" prop="entryPartyTime">
+              <DatePicker type="date" placeholder="请选择入学时间" v-model="formFindOrganization.entryPartyTime"></DatePicker>
           </FormItem>
-          <FormItem label="入党介绍人2" prop="introducer">
-              <Input type="text" v-model="formApplication.introducer2" style="width:200px"></Input>
+          <FormItem label="党员状态" prop="status">
+              <Input type="text" v-model="formFindOrganization.status"></Input>
           </FormItem>
-          <FormItem label="加入党组织" prop="partybranch">
-              <Select v-model="formApplication.partybranch" style="width:200px">
-                  <Option v-for="item in organizationList" :value="item.fparty" :key="item.id">{{item.fparty}}</Option>
-              </Select>
-          </FormItem>
-          <FormItem label="个人免冠相片">
+          <FormItem label="上传资料">
               <Row>
                 <Col span="4">
                   <Upload
@@ -74,20 +66,21 @@
               </Row>
           </FormItem>
           <FormItem>
-            <Row class="marginT_10" v-if="formApplication.personal_img">
-              <Col span="4">
+            <Row class="marginT_10" v-if="formFindOrganization.file">
+              <Col span="6">
                 <div class="demo-upload-list">
                     <template>
-                        <img class="reportImg" :src="formApplication.personal_img">
+                        <img class="ImgBlock" style="width: 150px;height: auto;margin: 0 auto;" :src="formFindOrganization.file">
                     </template>
                 </div>
               </Col>
             </Row>
           </FormItem>
+
           
-          <FormItem class="marginT_20">
-              <Button :disabled="ifCanChange" type="primary" @click="handleSubmit('formApplication')">提交</Button>
-              <Button :disabled="ifCanChange" type="ghost" @click="handleReset('formApplication')" style="margin-left: 8px">重置</Button>
+          <FormItem>
+              <Button type="primary" @click="handleSubmit('formFindOrganization')">提交</Button>
+              <Button type="ghost" @click="handleReset('formFindOrganization')" style="margin-left: 8px">重置</Button>
           </FormItem>
       </Form>
     </div>
@@ -109,70 +102,67 @@ import * as Moment from 'moment'
         ifCanChange:'', //是否显示提交按钮
         educationList:[],
         organizationList:[],
-        formApplication: {
+        formFindOrganization: {
                     name: '',
                     sex: '',
-                    origin:'',
                     nation: '',
-                    workTime:'',
                     id_card: '',
-                    address: '',
+                    OldOrg:'',
+                    JoinOrg: '',
                     education: '',
-                    school: '',
-                    entryTime: '',
-                    graduationTime: '',
-                    introducer1: '',
-                    introducer2: '',
-                    partybranch:'',
-                    personal_img:'',
-                    FileName:'',
+                    phone: '',
+                    position: '',
+                    payDate: '',
+                    entryPartyTime: '',
+                    status: '',
+                    file: '',
+                    FileName:''
+
         },
-        ruleApplication: {
+        ruleformFindOrganization: {
             name: [
                 { required: true, message: '请输入姓名！', trigger: 'blur' }
             ],
             sex: [
                 { required: true, message: '请选择性别！', trigger: 'change' }
             ],
-            origin: [
-                { required: true, message: '请输入籍贯！', trigger: 'blur' }
-            ],
             nation: [
                 { required: true, message: '请输入民族！', trigger: 'blur' }
-            ],
-            workTime: [
-                { required: true, type: 'date', message: '请选择参加工作时间！', trigger: 'change' }
             ],
             id_card: [
                 { required: true, message: '请输入身份证号！', trigger: 'blur' }
             ],
-            address: [
-                { required: true, message: '请输入家庭住址！', trigger: 'blur' }
+            OldOrg: [
+                { required: true, message: '请输入原组织名称！', trigger: 'change' }
+            ],
+            JoinOrg: [
+                { required: true, message: '请输入转入组织名称！', trigger: 'change' }
             ],
             education: [
                 { required: true, message: '请选择学历！', trigger: 'change' }
             ],
-            school: [
-                { required: true, message: '请输入学校！', trigger: 'blur' }
+            phone: [
+                { required: true, message: '请选择学历！', trigger: 'change' }
             ],
-            entryTime: [
-                { required: true, type: 'date', message: '请选择入学时间！', trigger: 'change' }
+            position: [
+                { required: true, message: '请输入手机号！', trigger: 'change' }
             ],
-            graduationTime: [
-                { required: true, type: 'date', message: '请选择毕业时间！', trigger: 'change' }
+            payDate: [
+                { required: true, type: 'date', message: '请选择党费缴纳时间！', trigger: 'change' }
             ],
-            introducer1: [
-                { required: true, message: '请输入介绍人1！', trigger: 'blur' }
+            entryPartyTime: [
+                { required: true, type: 'date', message: '请选择入党时间！', trigger: 'change' }
             ],
-            introducer2: [
-                { required: true, message: '请输入介绍人2！', trigger: 'blur' }
+            status: [
+                { required: true, message: '请选择党员状态！', trigger: 'change' }
             ],
-            partybranch: [
-                { required: true, message: '请选择党支部！', trigger: 'blur' }
+            file: [
+                { required: true, message: '请上传资料！', trigger: 'change' }
             ],
-            personal_img: [
-                { required: true, message: '请上传个人免冠相片！', trigger: 'blur' }
-            ],
+
+            
+            
+            
         },
         defaultList: [
         'https://o5wwk8baw.qnssl.com/a42bdcc1178e62b4694c830f028db5c0/avatar'
@@ -198,34 +188,6 @@ import * as Moment from 'moment'
       }).catch((error)=> {
         console.log(error)
       })
-      //获取填写的申请资料
-      axios.get(R_PRE_URL+'/information.do?fscard='+localStorage.getItem("user_ID")
-      ).then((res)=> {
-        if(res.data.length>0){
-          this.ifCanChange = true
-          this.formApplication.name = res.data[0].fname
-          this.formApplication.sex = res.data[0].fsex
-          this.formApplication.origin = res.data[0].fjg
-          this.formApplication.nation = res.data[0].fmz
-          this.formApplication.workTime = timestampToFormatTime(res.data[0].cjgzdate)
-          this.formApplication.id_card = res.data[0].fscard
-          this.formApplication.address = res.data[0].faddress
-          this.formApplication.education = res.data[0].xl
-          this.formApplication.school = res.data[0].fxx
-          this.formApplication.entryTime = timestampToFormatTime(res.data[0].rxdate)
-          this.formApplication.graduationTime = timestampToFormatTime(res.data[0].bydate)
-          this.formApplication.introducer1 = res.data[0].rdjsr.split(",")[0]
-          this.formApplication.introducer2 = res.data[0].rdjsr.split(",")[1]
-          this.formApplication.partybranch = res.data[0].partybranch
-          this.formApplication.personal_img = res.data[0].fimage
-        }else{
-          this.ifCanChange=false
-        }
-        
-        
-      }).catch((error)=> {
-        console.log(error)
-      })
       
     },
     computed: {
@@ -245,17 +207,14 @@ import * as Moment from 'moment'
           this.$refs[name].validate((valid) => {
               if (valid) {
                 let reg = /^1[34578]\d{9}$/
-                //var arr = ['entryTime','graduationTime','workTime']
-                // arr.map((Item,Idx)=>{
-                //     if(this.formApplication[Item]){
-                //         this.formApplication[Item] = Moment(this.formApplication[Item]).utc().add(0,'hours')
-                //         //this.formApplication[Item] = Moment(this.formApplication[Item]).add(1,'days')
-                //     }
-                // })
-                let DATA = {'Info':this.formApplication}
+                let DATA = {'Info':this.formFindOrganization}
                 console.log(DATA)
+                if (!reg.test(this.formFindOrganization.phone)) {
+                    this.$Message.error('手机号格式不对!')
+                    return
+                } 
                 this.ifLoading = true
-                axios.post(R_PRE_URL+'/applyparty.do?',DATA
+                axios.post(R_PRE_URL+'/lddyzzz.do?',DATA
                 ).then((res)=> {
                   switch(res.data){
                     case 0:
@@ -302,18 +261,21 @@ import * as Moment from 'moment'
       handleBeforeUpload (event) {
         var _this = this
         var file = event
-        _this.formApplication.FileName = file.name
+        console.log(file) 
+        _this.formFindOrganization.FileName = file.name
         var reader = new FileReader();   
         reader.readAsDataURL(file);   
         reader.onload = function(e){
-          _this.formApplication.personal_img = this.result
+          let reg = /^data:image\/(jpeg|png|gif);base64,/
+          //console.log(this.result.replace(reg, ""))
+          _this.formFindOrganization.file = this.result
         } 
       }
     }
   }
 </script>
 <style lang="scss">
-.Application{
+.FindOrganization{
   .MainBox{
     width: 90%;
     margin: 70px auto;
@@ -360,9 +322,7 @@ import * as Moment from 'moment'
     }
   
 }
-.reportImg{
-      width: 150px;
-      height: auto;
+.ImgBlock{
 }
 @media screen and (max-width: 767px) {
     .MainBox{

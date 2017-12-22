@@ -10,7 +10,8 @@
           <Card :bordered="false" dis-hover>
               <div style="text-align:center">
                   <video id="VideoContain" :src="Detail.video1
-"   enable-danmu danmu-btn controls></video>
+"   enable-danmu danmu-btn controls>您的浏览器不支持改视频！</video> 
+
                   <div v-html="Detail.stud"></div>
               </div>
           </Card>
