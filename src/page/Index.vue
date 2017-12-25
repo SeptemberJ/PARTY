@@ -70,7 +70,7 @@ import {imageUtil} from '../util/utils'
         this.LINK_lj = res.data[0].lj
         this.LINK_fgd = res.data[0].fgd
         this.LINK_jgdj = res.data[0].jgdj
-        //this.LINK_zt = res.data[0].zt
+        this.LINK_zt = res.data[0].zt
       }).catch((error)=> {
         console.log(error)
       })

@@ -9,8 +9,17 @@
           <p>拍摄时间：{{Detail.psdate}}</p>
           <Card :bordered="false" dis-hover>
               <div style="text-align:center">
-                  <video id="VideoContain" :src="Detail.video1
-"   enable-danmu danmu-btn controls>您的浏览器不支持改视频！</video> 
+                  <!-- <video id="VideoContain" :src="Detail.video1
+"   enable-danmu danmu-btn controls>您的浏览器不支持改视频！</video>  -->
+
+<video controls>
+  <source :src="Detail.video1" type="video/mp4">
+  <source :src="Detail.video1" type="video/ogg">
+  <source :src="Detail.video1" type="video/webm">
+  <object :data="Detail.video1" width="320" height="240">
+    <embed :src="Detail.video1" width="320" height="240">
+  </object> 
+</video>
 
                   <div v-html="Detail.stud"></div>
               </div>
@@ -39,7 +48,8 @@ import {timestampToFormatTime} from '../util/utils'
   export default{
     data: function () {
       return {
-        Detail:''
+        Detail:'',
+        src1:'https://zgeqscjdglj.org/upload/upload/files/20171223/275_2372_01.AVI'
       }
     },
     mounted: function () {
@@ -50,9 +60,12 @@ import {timestampToFormatTime} from '../util/utils'
       console.log(ID)
       axios.get(R_PRE_URL+'/selectvideonr.do?id='+ID
       ).then((res)=> {
+        let reg = /[\\\/]/g
         let temp = res.data[0]
+        temp.video1 = temp.video1.replace(reg, "/")
         temp.psdate = timestampToFormatTime(temp.psdate)
         this.Detail = temp
+        console.log(this.Detail)
       }).catch((error)=> {
         console.log(error)
       })

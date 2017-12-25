@@ -1,14 +1,26 @@
 <template>
   <div class="Application_pre">
     <BackBar></BackBar>
-      <div class="BgImg" :style="{background: 'url('+BgImg+') no-repeat top center/cover fixed'}">
+    <div class="MainBox">
+      <Row type="flex" justify="center" class="code-row-bg">
+          <Col span="6">
+            <Button type="error" shape="circle" size="large" long @click="GoApplication">申请</Button>
+          </Col>
+      </Row>
+      <Card :bordered="false" dis-hover>
+          <div style="text-align:center">
+              <img :src="BgImg">
+          </div>
+      </Card>
+    </div>
+      <!-- <div class="BgImg" :style="{background: 'url('+BgImg+') no-repeat top center/cover'}">
         <Row type="flex" justify="center" class="code-row-bg GoBt">
             <Col span="6">
               <Button type="error" shape="circle" size="large" long @click="GoApplication">申请</Button>
             </Col>
         </Row>
         
-      </div>
+      </div> -->
   </div> 
 </template>
 <script>
@@ -56,6 +68,14 @@ import BackBar from 'components/BackBar'
   height: 100%;
   overflow: hidden;
   display: block;
+  .MainBox{
+    width: 100%;
+    margin: 70px auto;
+    img{
+      width: 100%;
+      height: auto;
+    }
+  }
   .BgImg{
     width: 100%;
     height: 100%;
