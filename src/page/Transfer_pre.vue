@@ -12,13 +12,6 @@
               <img :src="BgImg">
           </div>
       </Card>
-      <!-- <div class="BgImg" :style="{background: 'url('+BgImg+') no-repeat top center/cover'}">
-        <Row type="flex" justify="center" class="code-row-bg GoBt">
-            <Col span="6">
-              <Button type="error" shape="circle" size="large" long @click="GoTransfer">申请</Button>
-            </Col>
-        </Row>
-      </div> -->
     </div>
   </div> 
 </template>

@@ -13,14 +13,6 @@
           </div>
       </Card>
     </div>
-      <!-- <div class="BgImg" :style="{background: 'url('+BgImg+') no-repeat top center/cover'}">
-        <Row type="flex" justify="center" class="code-row-bg GoBt">
-            <Col span="6">
-              <Button type="error" shape="circle" size="large" long @click="GoApplication">申请</Button>
-            </Col>
-        </Row>
-        
-      </div> -->
   </div> 
 </template>
 <script>
@@ -66,8 +58,6 @@ import BackBar from 'components/BackBar'
 .Application_pre{
   width: 100%;
   height: 100%;
-  overflow: hidden;
-  display: block;
   .MainBox{
     width: 100%;
     margin: 70px auto;
@@ -75,25 +65,6 @@ import BackBar from 'components/BackBar'
       width: 100%;
       height: auto;
     }
-  }
-  .BgImg{
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    display: block;
-    margin-top: 0px;
-  }
-  .GoBt{
-    width: 100%;
-    height:100px;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform:translate(-50%,-50%);
-    -ms-transform:translate(-50%,-50%);   /* IE 9 */
-    -moz-transform:translate(-50%,-50%);  /* Firefox */
-    -webkit-transform:translate(-50%,-50%); /* Safari 和 Chrome */
-    -o-transform:translate(-50%,-50%);  
   }
 
 }

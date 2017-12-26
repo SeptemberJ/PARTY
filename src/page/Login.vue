@@ -69,6 +69,7 @@ import Spin from '../components/Spin'
                         user_Name:UserInfo[1][0].fname,
                         user_Master:UserInfo[1][0].partybranch,
                         user_JoinTime:UserInfo[1][0].partydate,
+                        user_PartyPosition:UserInfo[1][0].dnzw,
                         user_LearnSituation:'已完成',
                         user_Type:UserInfo[0]
                       }
@@ -76,6 +77,7 @@ import Spin from '../components/Spin'
                       localStorage.setItem("user_Name",Info.user_Name)
                       localStorage.setItem("user_Master",Info.user_Master)
                       localStorage.setItem("user_JoinTime",Info.user_JoinTime)
+                      localStorage.setItem("user_PartyPosition",Info.user_PartyPosition)
                       localStorage.setItem("user_LearnSituation",Info.user_LearnSituation)
                       localStorage.setItem("user_ID",this.formInline.id_card)
                       localStorage.setItem("user_Type",Info.user_Type)
@@ -83,6 +85,7 @@ import Spin from '../components/Spin'
                       this.$store.state.userInfo.Name = Info.user_Name
                       this.$store.state.userInfo.Master = Info.user_Master
                       this.$store.state.userInfo.JoinTime = Info.user_JoinTime
+                      this.$store.state.userInfo.PartyPosition = Info.user_PartyPosition
                       this.$store.state.userInfo.LearnSituation = Info.user_LearnSituation
                       this.$store.state.userInfo.IdCard = this.formInline.id_card
                       this.$store.state.userInfo.Type = Info.user_Type

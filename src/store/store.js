@@ -9,20 +9,11 @@ const store = new Vuex.Store({
   state: {
     isMobile:false,
     activeRoute:'首页',
-    // userInfo2:{
-    //   Name:'',
-    //   Master:'',
-    //   JoinTime:'',
-    //   LearnSituation:'',
-    //   IdCard:'',
-    //   Type:-1,
-    //   FeedBack:'',
-    //   SF:'' //费正式党员身份类型
-    // },
     userInfo:{
       Name:localStorage.getItem("user_Name"),
       Master:localStorage.getItem("user_Master"),
       JoinTime:localStorage.getItem("user_JoinTime"),
+      PartyPosition:localStorage.getItem("user_PartyPosition"),
       LearnSituation:localStorage.getItem("user_LearnSituation"),
       IdCard:localStorage.getItem("user_ID"),
       Type:-1,

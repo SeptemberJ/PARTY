@@ -8,6 +8,10 @@
         <Col span="12" class="TextLeft">{{userInfo.Name}}</Col>
       </Row>
       <Row class="marginT_10" v-if="Type==0">
+        <Col span="12" class="TextRight"><b>党内职务：</b></Col>
+        <Col span="12" class="TextLeft">{{userInfo.PartyPosition}}</Col>
+      </Row>
+      <Row class="marginT_10" v-if="Type==0">
         <Col span="12" class="TextRight"><b>所属支部：</b></Col>
         <Col span="12" class="TextLeft">{{userInfo.Master}}</Col>
       </Row>
@@ -31,9 +35,9 @@
       <Row v-if="Type==1">
         <Col span="24">
           <Upload
-        multiple
         type="drag"
         :before-upload="handleBeforeUpload"
+        accept=".png, .jpg, .jpeg"
         action="">
         <div style="padding: 20px 0">
             <Icon type="ios-cloud-upload" size="52" style="color: #3399ff"></Icon>
@@ -232,6 +236,7 @@ import PullRefresh from '../components/PullRefresh'
               user_Name:UserInfo[1][0].fname,
               user_Master:UserInfo[1][0].partybranch,
               user_JoinTime:UserInfo[1][0].partydate,
+              user_PartyPosition:UserInfo[1][0].dnzw,
               user_LearnSituation:'已完成',
               user_Type:UserInfo[0]
             }
@@ -239,6 +244,7 @@ import PullRefresh from '../components/PullRefresh'
             localStorage.setItem("user_Name",Info.user_Name)
             localStorage.setItem("user_Master",Info.user_Master)
             localStorage.setItem("user_JoinTime",Info.user_JoinTime)
+            localStorage.setItem("user_PartyPosition",Info.user_PartyPosition)
             localStorage.setItem("user_LearnSituation",Info.user_LearnSituation)
             //localStorage.setItem("user_ID",this.formInline.id_card)
             localStorage.setItem("user_Type",Info.user_Type)
@@ -246,6 +252,7 @@ import PullRefresh from '../components/PullRefresh'
             this.$store.state.userInfo.Name = Info.user_Name
             this.$store.state.userInfo.Master = Info.user_Master
             this.$store.state.userInfo.JoinTime = Info.user_JoinTime
+            this.$store.state.userInfo.PartyPosition = Info.user_PartyPosition
             this.$store.state.userInfo.LearnSituation = Info.user_LearnSituation
             //this.$store.state.userInfo.IdCard = this.formInline.id_card
             this.$store.state.userInfo.Type = Info.user_Type

@@ -9,17 +9,15 @@
           <p>拍摄时间：{{Detail.psdate}}</p>
           <Card :bordered="false" dis-hover>
               <div style="text-align:center">
-                  <!-- <video id="VideoContain" :src="Detail.video1
+                 <!--  <video id="VideoContain" :src="Detail.video1
 "   enable-danmu danmu-btn controls>您的浏览器不支持改视频！</video>  -->
 
-<video controls>
-  <source :src="Detail.video1" type="video/mp4">
-  <source :src="Detail.video1" type="video/ogg">
-  <source :src="Detail.video1" type="video/webm">
-  <object :data="Detail.video1" width="320" height="240">
-    <embed :src="Detail.video1" width="320" height="240">
-  </object> 
-</video>
+<video-player  class="vjs-custom-skin"
+                 ref="videoPlayer"
+                 :options="playerOptions"
+                 :playsinline="true"
+                 >
+  </video-player>
 
                   <div v-html="Detail.stud"></div>
               </div>
@@ -45,11 +43,31 @@ import Vue from 'vue'
 import axios from 'axios'
 import BackBar from '../components/BackBar'
 import {timestampToFormatTime} from '../util/utils'
+require('videojs-flash')
   export default{
     data: function () {
       return {
         Detail:'',
-        src1:'https://zgeqscjdglj.org/upload/upload/files/20171223/275_2372_01.AVI'
+        playerOptions: {
+          // videojs options
+          muted: false,
+          language: 'zh-CN',
+          playbackRates: [0.7, 1.0, 1.5, 2.0],
+          techOrder: ['flash'],
+          // techOrder: ['flash', 'html5'], // 兼容顺序
+          // sourceOrder: true,
+          // flash: { hls: { withCredentials: false } },
+          // html5: { hls: { withCredentials: false } },
+          sources:'',
+          poster: "",
+          controlBar: { // 配置控制栏
+          timeDivider: true, // 时间分割线
+          durationDisplay: true, // 总时间
+          progressControl: true, // 进度条
+          customControlSpacer: true, // 未知
+          fullscreenToggle: true // 全屏
+        },
+        }
       }
     },
     mounted: function () {
@@ -65,6 +83,11 @@ import {timestampToFormatTime} from '../util/utils'
         temp.video1 = temp.video1.replace(reg, "/")
         temp.psdate = timestampToFormatTime(temp.psdate)
         this.Detail = temp
+        this.playerOptions.poster = temp.fimage
+        this.playerOptions.sources = [{
+            type: "",
+            src: temp.video1//"static/Free-Converter.com-nk3_cloud-69092250.swf"//
+          }]
         console.log(this.Detail)
       }).catch((error)=> {
         console.log(error)
@@ -72,6 +95,9 @@ import {timestampToFormatTime} from '../util/utils'
       
     },
     computed: {
+      player() {
+        return this.$refs.videoPlayer.player
+      }
       
     },
     watch: {
@@ -98,6 +124,9 @@ import {timestampToFormatTime} from '../util/utils'
       width: 100%;
       overflow: hidden;
     }
+  }
+  .video-js{
+    width: 100% !important;
   }
 }
 

@@ -3,14 +3,14 @@
     <BackBar></BackBar>
     <div class="LearnBox">
       <Row>
-        <Col span="24">
-          <!-- <Card :bordered="false" dis-hover>
-              <div style="text-align:center">
-                  <video id="VideoContain" :src="Video" poster="static/img/Application.jpg">您的浏览器不支持改视频！</video> 
-                  <h3>A high quality UI Toolkit based on Vue.js</h3>
+        <Col span="12" v-for="(Video,VideoIdx) in dataVideo" class="marginT_10">
+          <Card :bordered="false" dis-hover>
+              <div style="text-align:center" @click="ToDetail(Video.id)"> 
+                  <img :src="Video.video1">
+                  <h3>{{Video.fname}}</h3>
               </div>
-          </Card> -->
-          <Table :highlight-row="true" :columns="columns1" :data="dataVideo" :show-header="false" @on-current-change="chooseRow"></Table>
+          </Card>
+          <!-- <Table :highlight-row="true" :columns="columns1" :data="dataVideo" :show-header="false" @on-current-change="chooseRow"></Table> -->
         </Col>
       </Row>
     </div>
@@ -87,6 +87,9 @@ import {timestampToFormatTime} from '../util/utils'
       chooseRow(event){
         this.$router.push({name:'详情',params: {id:event.id}})
       },
+      ToDetail(ID){
+        this.$router.push({name:'详情',params: {id:ID}})
+      },
     }
   }
 </script>
@@ -94,6 +97,14 @@ import {timestampToFormatTime} from '../util/utils'
 .Learn{
   .LearnBox{
     margin: 42px auto 0 auto;
+  }
+  h3{
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
+  }
+  img{
+    width: 50%;
   }
 }
 </style>
