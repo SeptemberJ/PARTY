@@ -10,16 +10,16 @@ import iView from 'iview';
 import 'iview/dist/styles/iview.css';
 
 // import 'theme/theme.less';
-import 'video.js/dist/video-js.css'
-import 'vue-video-player/src/custom-theme.css'
-import VueVideoPlayer from 'vue-video-player'
+// import 'video.js/dist/video-js.css'
+// import 'vue-video-player/src/custom-theme.css'
+// import VueVideoPlayer from 'vue-video-player'
 
 
 Vue.use(VueDND)
 Vue.use(VueResource)
 Vue.use(Vuex)
 Vue.use(iView)
-Vue.use(VueVideoPlayer)
+// Vue.use(VueVideoPlayer)
 //开启debug模式
 Vue.config.debug = true
 window.log = console.log

@@ -21,6 +21,7 @@ const store = new Vuex.Store({
       SF:localStorage.getItem("user_SF"), //费正式党员身份类型
     },
     ifLogined:localStorage.getItem("user_Logined"),
+    VideoSource:''
     
     
     },

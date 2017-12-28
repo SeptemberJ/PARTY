@@ -2,7 +2,8 @@
   <div class="Index" style="background: url('static/img/BgP.jpg'); background-size: 100% 100%;background-repeat: no-repeat;">
   <!-- <div class="Index" style="background: url('static/img/BgP.jpg');background-attachment: fixed;background-repeat: no-repeat;" :style="backgroundSize:600 300"> -->
     <div class="FiveModule">
-      <Row type="flex" justify="space-between" class="code-row-bg">
+      <div style="width: 100%;height: 120px;margin:0 auto;display: block; text-align: center;">
+      <Row type="flex" justify="space-between" class="code-row-bg" style="">
           <Col :xs="{ span: 4, offset: 0 }" class="ModuleItem">
             <img class="ModuleImg" src="static/img/zzfz.png" @click="GoToModule('Application')">
           </Col>
@@ -16,23 +17,27 @@
             <img class="ModuleImg" src="static/img/dygrzx.png" @click="GoToModule('Login')">
           </Col>
           <Col :xs="{ span: 4, offset: 0 }" class="ModuleItem">
-            <img class="ModuleImg" src="static/img/shyk.png" @click="GoToModule('Learn')">
-          </Col>
-      </Row>
-      <Row type="flex" justify="space-around" class="code-row-bg">
-          <Col :xs="{ span: 4, offset: 0 }" class="ModuleItem">
-            <img class="ModuleImg" src="static/img/fgdtj.png" @click="GoToModule('NotPartyBuild')">
-          </Col>
-          <Col :xs="{ span: 4, offset: 0 }" class="ModuleItem">
-            <img class="ModuleImg" src="static/img/jgdj.png" @click="GoToModule('PartyBuild')">
-          </Col>
-          <Col :xs="{ span: 4, offset: 0 }" class="ModuleItem">
             <img class="ModuleImg" src="static/img/ldtyzzz.png" @click="GoToModule('FindOrganization')">
           </Col>
-          <Col :xs="{ span: 4, offset: 0 }" class="ModuleItem" >
+          
+      </Row>
+      </div>
+      <div style="width: 85%;height: auto;margin:0 auto;display: block;">
+      <Row type="flex" justify="space-around" class="code-row-bg"  style="width: auto;height: 150px;margin: 0 auto;">
+          <Col :xs="{ span: 5, offset: 0 }" class="ModuleItem">
+            <img class="ModuleImg" src="static/img/fgdtj.png" @click="GoToModule('NotPartyBuild')">
+          </Col>
+          <Col :xs="{ span: 5, offset: 0 }" class="ModuleItem">
+            <img class="ModuleImg" src="static/img/jgdj.png" @click="GoToModule('PartyBuild')">
+          </Col>
+          <Col :xs="{ span: 5, offset: 0 }" class="ModuleItem">
+            <img class="ModuleImg" src="static/img/shyk.png" @click="GoToModule('Learn')">
+          </Col>
+          <Col :xs="{ span: 5, offset: 0 }" class="ModuleItem" >
             <img class="ModuleImg" src="static/img/zhdjzszx.png" @click="GoToModule('Display')">
           </Col>
       </Row>
+      </div>
     </div>
   </div> 
 
@@ -135,8 +140,10 @@ import {imageUtil} from '../util/utils'
   .FiveModule{
     width: 90%;
     height:300px;
+    display: flex;
+    flex-direction: column;
     position: fixed;
-    top: 50%;
+    top: 47%;
     left: 42%;
     transform:translate(-50%,-50%);
     -ms-transform:translate(-50%,-50%);   /* IE 9 */
@@ -153,7 +160,7 @@ import {imageUtil} from '../util/utils'
     text-align: center;
   }
   .ModuleImg{
-      width: 50%;
+      width: 45%;
       height: auto;
     }
   @media screen and (max-width:768px){

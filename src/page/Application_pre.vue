@@ -1,12 +1,13 @@
 <template>
   <div class="Application_pre">
     <BackBar></BackBar>
-    <div class="MainBox">
-      <Row type="flex" justify="center" class="code-row-bg">
-          <Col span="6">
+    <div class="MainBox TextCenter">
+      <!-- <Row type="flex" justify="center" class="code-row-bg">
+          <Col span="6" style="z-index:999;margin:0 auto 10px auto;"> -->
+            <!-- <h3 @click="GoApplication" class="TextCenter">申请</h3> -->
             <Button type="error" shape="circle" size="large" long @click="GoApplication">申请</Button>
-          </Col>
-      </Row>
+         <!--  </Col>
+      </Row> -->
       <Card :bordered="false" dis-hover>
           <div style="text-align:center">
               <img :src="BgImg">
@@ -64,6 +65,10 @@ import BackBar from 'components/BackBar'
     img{
       width: 100%;
       height: auto;
+    }
+    button{
+      width: 100px;
+      margin: 0 auto;
     }
   }
 
