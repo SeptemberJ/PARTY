@@ -56,11 +56,10 @@
             :on-format-error="handleFormatError"
             :on-exceeded-size="handleMaxSize"
             :before-upload="handleBeforeUpload"
-            accept=".png, .jpg, .jpeg"
             type="drag"
             action=""
             style="display: inline-block;">
-                        <Button type="ghost" icon="ios-cloud-upload-outline">上传图片</Button>
+                        <Button type="ghost" icon="ios-cloud-upload-outline">请选择上传的图片</Button>
                   </Upload>
                 </Col>
               </Row>

@@ -35,13 +35,15 @@
       <Row v-if="Type==1">
         <Col span="24">
           <Upload
-        type="drag"
-        :before-upload="handleBeforeUpload"
-        accept=".png, .jpg, .jpeg"
-        action="">
+            :format="['jpg','jpeg','png']"
+            :max-size="2048"
+            :on-format-error="handleFormatError"
+            type="drag"
+            :before-upload="handleBeforeUpload"
+            action="">
         <div style="padding: 20px 0">
             <Icon type="ios-cloud-upload" size="52" style="color: #3399ff"></Icon>
-            <p>点击上传思想汇报</p>
+            <p>点击选择上传思想汇报</p>
         </div>
           </Upload>
         </Col>
@@ -169,14 +171,14 @@ import PullRefresh from '../components/PullRefresh'
       },
       handleFormatError (file) {
           this.$Notice.warning({
-              title: 'The file format is incorrect',
-              desc: 'File format of ' + file.name + ' is incorrect, please select jpg or png.'
+              title: '图片格式警告',
+              desc: '您上传的' + file.name + '文件格式不支持!'
           });
       },
       handleMaxSize (file) {
           this.$Notice.warning({
-              title: 'Exceeding file size limit',
-              desc: 'File  ' + file.name + ' is too large, no more than 2M.'
+              title: '图片大小警告',
+              desc: '您上传的  ' + file.name + '太大了, 请不要超过2M!'
           });
       },
       handleBeforeUpload (event) {
