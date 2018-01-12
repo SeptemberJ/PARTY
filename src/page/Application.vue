@@ -52,6 +52,7 @@
                   <Option v-for="item in organizationList" :value="item.fparty" :key="item.id">{{item.fparty}}</Option>
               </Select>
           </FormItem>
+          <!-- 相片 -->
           <FormItem label="个人免冠相片">
               <Row>
                 <Col span="4">
@@ -78,6 +79,38 @@
                 <div class="demo-upload-list">
                     <template>
                         <img class="reportImg" :src="formApplication.personal_img">
+                    </template>
+                </div>
+              </Col>
+            </Row>
+          </FormItem>
+          <!-- 思想汇报 -->
+          <FormItem label="思想汇报"  prop="report_img">
+              <Row>
+                <Col span="4">
+                  <Upload
+            ref="upload"
+            :show-upload-list="false"
+            :on-success="handleSuccess"
+            :format="['jpg','jpeg','png']"
+            :max-size="2048"
+            :on-format-error="handleFormatError"
+            :on-exceeded-size="handleMaxSize"
+            :before-upload="handleBeforeUploadSX"
+            type="drag"
+            action=""
+            style="display: inline-block;">
+                        <Button type="ghost" icon="ios-cloud-upload-outline">请选择上传的图片</Button>
+                  </Upload>
+                </Col>
+              </Row>
+          </FormItem>
+          <FormItem>
+            <Row class="marginT_10" v-if="formApplication.report_img">
+              <Col span="4">
+                <div class="demo-upload-list">
+                    <template>
+                        <img class="reportImg" :src="formApplication.report_img">
                     </template>
                 </div>
               </Col>
@@ -124,7 +157,9 @@ import * as Moment from 'moment'
                     introducer2: '',
                     partybranch:'',
                     personal_img:'',
+                    report_img:'',
                     FileName:'',
+                    FileName_report:''
         },
         ruleApplication: {
             name: [
@@ -169,8 +204,8 @@ import * as Moment from 'moment'
             partybranch: [
                 { required: true, message: '请选择党支部！', trigger: 'blur' }
             ],
-            personal_img: [
-                { required: true, message: '请上传个人免冠相片！', trigger: 'blur' }
+            report_img: [
+                { required: true, message: '请选择要上传的思想汇报！', trigger: 'change' }
             ],
         },
         defaultList: [
@@ -244,13 +279,6 @@ import * as Moment from 'moment'
           this.$refs[name].validate((valid) => {
               if (valid) {
                 let reg = /^1[34578]\d{9}$/
-                //var arr = ['entryTime','graduationTime','workTime']
-                // arr.map((Item,Idx)=>{
-                //     if(this.formApplication[Item]){
-                //         this.formApplication[Item] = Moment(this.formApplication[Item]).utc().add(0,'hours')
-                //         //this.formApplication[Item] = Moment(this.formApplication[Item]).add(1,'days')
-                //     }
-                // })
                 let DATA = {'Info':this.formApplication}
                 console.log(DATA)
                 this.ifLoading = true
@@ -306,6 +334,16 @@ import * as Moment from 'moment'
         reader.readAsDataURL(file);   
         reader.onload = function(e){
           _this.formApplication.personal_img = this.result
+        } 
+      },
+      handleBeforeUploadSX (event) {
+        var _this = this
+        var file = event
+        _this.formApplication.FileName_report = file.name
+        var reader = new FileReader();   
+        reader.readAsDataURL(file);   
+        reader.onload = function(e){
+          _this.formApplication.report_img = this.result
         } 
       }
     }

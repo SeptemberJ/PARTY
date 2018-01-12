@@ -45,6 +45,9 @@ html,body{
         .TextRight{
             text-align: right;
         }
+        .textIndent{
+            text-indent:20px;
+        }
         .colorGray{
           color: #989898;
         }

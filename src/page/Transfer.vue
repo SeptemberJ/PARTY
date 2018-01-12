@@ -20,6 +20,37 @@
            <FormItem label="转出原因" prop="transferReason">
               <Input type="text" v-model="formTransfer.transferReason"></Input>
           </FormItem>
+          <!-- 思想汇报 -->
+          <FormItem label="介绍信"  prop="introduce_letter">
+              <Row>
+                <Col span="4">
+                  <Upload
+            :show-upload-list="false"
+            :on-success="handleSuccess"
+            :format="['jpg','jpeg','png']"
+            :max-size="2048"
+            :on-format-error="handleFormatError"
+            :on-exceeded-size="handleMaxSize"
+            :before-upload="handleBeforeUpload"
+            type="drag"
+            action=""
+            style="display: inline-block;">
+                        <Button type="ghost" icon="ios-cloud-upload-outline">请选择上传的图片</Button>
+                  </Upload>
+                </Col>
+              </Row>
+          </FormItem>
+          <FormItem>
+            <Row class="marginT_10" v-if="formTransfer.introduce_letter">
+              <Col span="4">
+                <div class="demo-upload-list">
+                    <template>
+                        <img class="reportImg" :src="formTransfer.introduce_letter">
+                    </template>
+                </div>
+              </Col>
+            </Row>
+          </FormItem>
           <FormItem>
               <Button type="primary" @click="handleSubmit('formTransfer')">提交</Button>
               <Button type="ghost" @click="handleReset('formTransfer')" style="margin-left: 8px">重置</Button>
@@ -44,7 +75,9 @@ import Spin from '../components/Spin'
                     id_card: '',
                     work: '',
                     transferMaster:'',
-                    transferReason:''
+                    transferReason:'',
+                    FileName:'',
+                    introduce_letter:''
         },
         ruleTransfer: {
             name: [
@@ -61,6 +94,9 @@ import Spin from '../components/Spin'
             ],
             transferReason: [
                 { required: true, message: '请输入转出原因！', trigger: 'blur' }
+            ],
+            introduce_letter: [
+                { required: true, message: '请选择要上传的转出组织介绍信！', trigger: 'change' }
             ],
             
         }
@@ -91,6 +127,32 @@ import Spin from '../components/Spin'
 
     },
     methods: {
+      handleSuccess (res, file) {
+          // file.url = 'https://o5wwk8baw.qnssl.com/7eb99afb9d5f317c912f08b5212fd69a/avatar';
+          // file.name = '7eb99afb9d5f317c912f08b5212fd69a';
+      },
+      handleFormatError (file) {
+          this.$Notice.warning({
+              title: '图片格式警告',
+              desc: '您上传的' + file.name + '文件格式不支持!'
+          });
+      },
+      handleMaxSize (file) {
+          this.$Notice.warning({
+              title: '图片大小警告',
+              desc: '您上传的  ' + file.name + '太大了, 请不要超过2M!'
+          });
+      },
+      handleBeforeUpload (event) {
+        var _this = this
+        var file = event
+        _this.formTransfer.FileName = file.name
+        var reader = new FileReader();   
+        reader.readAsDataURL(file);   
+        reader.onload = function(e){
+          _this.formTransfer.introduce_letter = this.result
+        } 
+      },
       handleSubmit (name) {
           this.$refs[name].validate((valid) => {
               if (valid) {
@@ -99,10 +161,10 @@ import Spin from '../components/Spin'
                 this.ifLoading = true
                 axios.post(R_PRE_URL+'/updateparty.do',DATA
                 ).then((res)=> {
-                  switch(res.data){
+                  switch(res.data[0]){
                     case 0:
                     this.ifLoading = false
-                    this.$Message.error('提交失败!')
+                    this.$Message.error(res.data[1]+'!')
                     break
                     case 1:
                     this.ifLoading = false

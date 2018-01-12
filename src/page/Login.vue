@@ -75,6 +75,10 @@ import Spin from '../components/Spin'
                       }
                       localStorage.setItem("user_Logined",true)
                       localStorage.setItem("user_Name",Info.user_Name)
+                      localStorage.setItem("user_FeedBack",UserInfo[1][0].feedback)
+                      localStorage.setItem("user_ZRFeedBack",UserInfo[1][0].zrfeedback)
+                      localStorage.setItem("user_ydate",UserInfo[1][0].ydate)
+                      localStorage.setItem("user_zrdate",UserInfo[1][0].zrdate)
                       localStorage.setItem("user_Master",Info.user_Master)
                       localStorage.setItem("user_JoinTime",Info.user_JoinTime)
                       localStorage.setItem("user_PartyPosition",Info.user_PartyPosition)
@@ -83,6 +87,10 @@ import Spin from '../components/Spin'
                       localStorage.setItem("user_Type",Info.user_Type)
                       this.$store.state.ifLogined = true
                       this.$store.state.userInfo.Name = Info.user_Name
+                      this.$store.state.userInfo.FeedBack = UserInfo[1][0].feedback
+                      this.$store.state.userInfo.ZRFeedBack = UserInfo[1][0].zrfeedback
+                      this.$store.state.userInfo.ydate = UserInfo[1][0].ydate
+                      this.$store.state.userInfo.zrdate = UserInfo[1][0].zrdate
                       this.$store.state.userInfo.Master = Info.user_Master
                       this.$store.state.userInfo.JoinTime = Info.user_JoinTime
                       this.$store.state.userInfo.PartyPosition = Info.user_PartyPosition
@@ -98,12 +106,18 @@ import Spin from '../components/Spin'
                       localStorage.setItem("user_ID",this.formInline.id_card)
                       localStorage.setItem("user_Name",UserInfo[1][0].fname)
                       localStorage.setItem("user_FeedBack",UserInfo[1][0].feedback)
+                      localStorage.setItem("user_ZRFeedBack",UserInfo[1][0].zrfeedback)
+                      localStorage.setItem("user_ydate",UserInfo[1][0].ydate)
+                      localStorage.setItem("user_zrdate",UserInfo[1][0].zrdate)
                       localStorage.setItem("user_Type",UserInfo[0])
                       localStorage.setItem("user_SF",UserInfo[1][0].dangyuanzt)
                       this.$store.state.ifLogined = true
                       this.$store.state.userInfo.IdCard = this.formInline.id_card
                       this.$store.state.userInfo.Name = UserInfo[1][0].fname
                       this.$store.state.userInfo.FeedBack = UserInfo[1][0].feedback
+                      this.$store.state.userInfo.ZRFeedBack = UserInfo[1][0].zrfeedback
+                      this.$store.state.userInfo.ydate = UserInfo[1][0].ydate
+                      this.$store.state.userInfo.zrdate = UserInfo[1][0].zrdate
                       this.$store.state.userInfo.Type = UserInfo[0]
                       this.$store.state.userInfo.SF = UserInfo[1][0].dangyuanzt
                       this.$Message.success('欢迎登录!')
