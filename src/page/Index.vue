@@ -19,10 +19,28 @@
           <Col :xs="{ span: 4, offset: 0 }" class="ModuleItem">
             <img class="ModuleImg" src="static/img/ldtyzzz.png" @click="GoToModule('FindOrganization')">
           </Col>
-          
       </Row>
       </div>
-      <div style="width: 85%;height: auto;margin:0 auto;display: block;">
+      <div style="width: 100%;height: 120px;margin:0 auto;display: block; text-align: center;">
+      <Row type="flex" justify="space-between" class="code-row-bg" style="">
+          <Col :xs="{ span: 4, offset: 0 }" class="ModuleItem">
+            <img class="ModuleImg" src="static/img/fgdtj.png" @click="GoToModule('NotPartyBuild')">
+          </Col>
+          <Col :xs="{ span: 4, offset: 0 }" class="ModuleItem">
+            <img class="ModuleImg" src="static/img/jgdj.png" @click="GoToModule('PartyBuild')">
+          </Col>
+          <Col :xs="{ span: 4, offset: 0 }" class="ModuleItem">
+            <img class="ModuleImg" src="static/img/shyk.png" @click="GoToModule('Learn')">
+          </Col>
+          <Col :xs="{ span: 4, offset: 0 }" class="ModuleItem" >
+            <img class="ModuleImg" src="static/img/zhdjzszx.png" @click="GoToModule('Display')">
+          </Col>
+          <Col :xs="{ span: 4, offset: 0 }" class="ModuleItem">
+            <img class="ModuleImg" src="static/img/dflz.png" @click="GoToModule('DFLZ')">
+          </Col>
+      </Row>
+      </div>
+      <!-- <div style="width: 85%;height: auto;margin:0 auto;display: block;">
       <Row type="flex" justify="space-around" class="code-row-bg"  style="width: auto;height: 150px;margin: 0 auto;">
           <Col :xs="{ span: 5, offset: 0 }" class="ModuleItem">
             <img class="ModuleImg" src="static/img/fgdtj.png" @click="GoToModule('NotPartyBuild')">
@@ -37,7 +55,7 @@
             <img class="ModuleImg" src="static/img/zhdjzszx.png" @click="GoToModule('Display')">
           </Col>
       </Row>
-      </div>
+      </div> -->
     </div>
   </div> 
 
@@ -63,6 +81,7 @@ import {imageUtil} from '../util/utils'
         LINK_fgd:'',
         LINK_jgdj:'',
         LINK_zt:'',
+        LINK_dflz:''
         
       }
     },
@@ -76,6 +95,7 @@ import {imageUtil} from '../util/utils'
         this.LINK_fgd = res.data[0].fgd
         this.LINK_jgdj = res.data[0].jgdj
         this.LINK_zt = res.data[0].zt
+        this.LINK_dflz = res.data[0].dflz
       }).catch((error)=> {
         console.log(error)
       })
@@ -124,6 +144,9 @@ import {imageUtil} from '../util/utils'
                 break
                 case 'Display':
                 window.location.href = _this.LINK_zt
+                break
+                case 'DFLZ':
+                window.location.href = _this.LINK_dflz
                 break
             }
         }

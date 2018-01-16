@@ -95,9 +95,9 @@ import Spin from '../components/Spin'
             transferReason: [
                 { required: true, message: '请输入转出原因！', trigger: 'blur' }
             ],
-            introduce_letter: [
-                { required: true, message: '请选择要上传的转出组织介绍信！', trigger: 'change' }
-            ],
+            // introduce_letter: [
+            //     { required: true, message: '请选择要上传的转出组织介绍信！', trigger: 'change' }
+            // ],
             
         }
       }

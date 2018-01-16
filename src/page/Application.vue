@@ -204,9 +204,9 @@ import * as Moment from 'moment'
             partybranch: [
                 { required: true, message: '请选择党支部！', trigger: 'blur' }
             ],
-            report_img: [
-                { required: true, message: '请选择要上传的思想汇报！', trigger: 'change' }
-            ],
+            // report_img: [
+            //     { required: true, message: '请选择要上传的思想汇报！', trigger: 'change' }
+            // ],
         },
         defaultList: [
         'https://o5wwk8baw.qnssl.com/a42bdcc1178e62b4694c830f028db5c0/avatar'
