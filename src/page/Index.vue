@@ -2,7 +2,8 @@
   <div class="Index" style="background: url('static/img/BgP.jpg'); background-size: 100% 100%;background-repeat: no-repeat;">
   <!-- <div class="Index" style="background: url('static/img/BgP.jpg');background-attachment: fixed;background-repeat: no-repeat;" :style="backgroundSize:600 300"> -->
     <div class="FiveModule">
-      <div style="width: 100%;height: 120px;margin:0 auto;display: block; text-align: center;">
+      <!-- <div style="width: 100%;height: 120px;margin:0 auto;display: block; text-align: center;"> -->
+      <div class="DBlock" >
       <Row type="flex" justify="space-between" class="code-row-bg" style="">
           <Col :xs="{ span: 4, offset: 0 }" class="ModuleItem">
             <img class="ModuleImg" src="static/img/zzfz.png" @click="GoToModule('Application')">
@@ -21,7 +22,7 @@
           </Col>
       </Row>
       </div>
-      <div style="width: 100%;height: 120px;margin:0 auto;display: block; text-align: center;">
+      <div class="DBlock" >
       <Row type="flex" justify="space-between" class="code-row-bg" style="">
           <Col :xs="{ span: 4, offset: 0 }" class="ModuleItem">
             <img class="ModuleImg" src="static/img/fgdtj.png" @click="GoToModule('NotPartyBuild')">
@@ -162,11 +163,11 @@ import {imageUtil} from '../util/utils'
  
   .FiveModule{
     width: 90%;
-    height:300px;
+    
     display: flex;
     flex-direction: column;
     position: fixed;
-    top: 47%;
+    top: 43%;
     left: 42%;
     transform:translate(-50%,-50%);
     -ms-transform:translate(-50%,-50%);   /* IE 9 */
@@ -174,6 +175,13 @@ import {imageUtil} from '../util/utils'
     -webkit-transform:translate(-50%,-50%); /* Safari 和 Chrome */
     -o-transform:translate(-50%,-50%);  
 
+  }
+  .DBlock{
+    width: 100%;
+    height: 120px;
+    margin:20px auto auto auto;
+    display: block; 
+    text-align: center;
   }
   .ivu-row{
     height: 100%;
@@ -203,6 +211,13 @@ import {imageUtil} from '../util/utils'
     -webkit-transform:translate(-50%,-50%); /* Safari 和 Chrome */
     -o-transform:translate(-50%,-50%);  
 
+  }
+  .DBlock{
+    width: 100%;
+    height: 90px;
+    margin:0px auto;
+    display: block; 
+    text-align: center;
   }
   }
   
