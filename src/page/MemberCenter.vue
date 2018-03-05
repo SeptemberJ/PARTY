@@ -7,6 +7,14 @@
         <Col span="12" class="TextRight"><b>姓名：</b></Col>
         <Col span="12" class="TextLeft">{{userInfo.Name}}</Col>
       </Row>
+      <Row class="marginT_10">
+        <Col span="12" class="TextRight"><b>身份证号：</b></Col>
+        <Col span="12" class="TextLeft">{{userInfo.IdCard}}</Col>
+      </Row>
+      <Row class="marginT_10" v-if="Type==0">
+        <Col span="12" class="TextRight"><b>局内职务：</b></Col>
+        <Col span="12" class="TextLeft">{{userInfo.JNPosition}}</Col>
+      </Row>
       <Row class="marginT_10" v-if="Type==0">
         <Col span="12" class="TextRight"><b>党内职务：</b></Col>
         <Col span="12" class="TextLeft">{{userInfo.PartyPosition}}</Col>
@@ -18,6 +26,14 @@
       <Row class="marginT_10" v-if="Type==0">
         <Col span="12" class="TextRight"><b>入党时间：</b></Col>
         <Col span="12" class="TextLeft">{{userInfo.JoinTime}}</Col>
+      </Row>
+      <Row class="marginT_10" v-if="Type==0">
+        <Col span="12" class="TextRight"><b>工作单位：</b></Col>
+        <Col span="12" class="TextLeft">{{userInfo.WorkUnit}}</Col>
+      </Row>
+      <Row class="marginT_10" v-if="Type==0">
+        <Col span="12" class="TextRight"><b>党费：</b></Col>
+        <Col span="12" class="TextLeft">{{userInfo.PartyCost}}</Col>
       </Row>
       <Row class="marginT_10" v-if="Type==1">
         <Col span="12" class="TextRight"><b>目前身份：</b></Col>
@@ -277,7 +293,7 @@ import PullRefresh from '../components/PullRefresh'
             this.$store.state.userInfo.JoinTime = Info.user_JoinTime
             this.$store.state.userInfo.PartyPosition = Info.user_PartyPosition
             this.$store.state.userInfo.LearnSituation = Info.user_LearnSituation
-            //this.$store.state.userInfo.IdCard = this.formInline.id_card
+            this.$store.state.userInfo.IdCard = UserInfo[1][0].fscard
             this.$store.state.userInfo.Type = Info.user_Type
             this.$Message.success('欢迎登录!')
             this.$router.push({name:'党员中心'});
@@ -285,7 +301,7 @@ import PullRefresh from '../components/PullRefresh'
             case 1:
             this.ifLoading = false
             localStorage.setItem("user_Logined",true)
-            //localStorage.setItem("user_ID",this.formInline.id_card)
+            localStorage.setItem("user_ID",this.formInline.id_card)
             localStorage.setItem("user_Name",UserInfo[1][0].fname)
             localStorage.setItem("user_FeedBack",UserInfo[1][0].feedback)
             localStorage.setItem("user_ZRFeedBack",UserInfo[1][0].zrfeedback)
@@ -294,7 +310,7 @@ import PullRefresh from '../components/PullRefresh'
             localStorage.setItem("user_Type",UserInfo[0])
             localStorage.setItem("user_SF",UserInfo[1][0].dangyuanzt)
             this.$store.state.ifLogined = true
-            //this.$store.state.userInfo.IdCard = this.formInline.id_card
+            this.$store.state.userInfo.IdCard = UserInfo[1][0].fscard
             this.$store.state.userInfo.Name = UserInfo[1][0].fname
             this.$store.state.userInfo.FeedBack = UserInfo[1][0].feedback
             this.$store.state.userInfo.ZRFeedBack = UserInfo[1][0].zrfeedback

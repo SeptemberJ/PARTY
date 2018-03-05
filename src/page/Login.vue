@@ -4,7 +4,7 @@
       <div class="LoginBox">
         <Form ref="formInline" :model="formInline" :rules="ruleInline" >
             <FormItem prop="id_card">
-                <Input type="text" v-model="formInline.id_card" placeholder="请输入身份证号">
+                <Input type="text"  v-model="formInline.id_card" id="IdCard" placeholder="请输入身份证号">
                     <Icon type="ios-person-outline" slot="prepend"></Icon>
                 </Input>
             </FormItem>
@@ -85,6 +85,8 @@ import Spin from '../components/Spin'
                       localStorage.setItem("user_LearnSituation",Info.user_LearnSituation)
                       localStorage.setItem("user_ID",this.formInline.id_card)
                       localStorage.setItem("user_Type",Info.user_Type)
+                      localStorage.setItem("user_WorkUnit",UserInfo[1][0].unit)
+                      localStorage.setItem("user_JNPosition",UserInfo[1][0].jnzw)
                       this.$store.state.ifLogined = true
                       this.$store.state.userInfo.Name = Info.user_Name
                       this.$store.state.userInfo.FeedBack = UserInfo[1][0].feedback
@@ -96,6 +98,8 @@ import Spin from '../components/Spin'
                       this.$store.state.userInfo.PartyPosition = Info.user_PartyPosition
                       this.$store.state.userInfo.LearnSituation = Info.user_LearnSituation
                       this.$store.state.userInfo.IdCard = this.formInline.id_card
+                      this.$store.state.userInfo.WorkUnit = UserInfo[1][0].unit
+                      this.$store.state.userInfo.JNPosition = UserInfo[1][0].jnzw
                       this.$store.state.userInfo.Type = Info.user_Type
                       this.$Message.success('欢迎登录!')
                       this.$router.push({name:'党员中心'});
@@ -110,6 +114,7 @@ import Spin from '../components/Spin'
                       localStorage.setItem("user_ydate",UserInfo[1][0].ydate)
                       localStorage.setItem("user_zrdate",UserInfo[1][0].zrdate)
                       localStorage.setItem("user_Type",UserInfo[0])
+                      localStorage.setItem("user_user_PartyCost",UserInfo[0].partyprice)
                       localStorage.setItem("user_SF",UserInfo[1][0].dangyuanzt)
                       this.$store.state.ifLogined = true
                       this.$store.state.userInfo.IdCard = this.formInline.id_card
@@ -119,6 +124,7 @@ import Spin from '../components/Spin'
                       this.$store.state.userInfo.ydate = UserInfo[1][0].ydate
                       this.$store.state.userInfo.zrdate = UserInfo[1][0].zrdate
                       this.$store.state.userInfo.Type = UserInfo[0]
+                      this.$store.state.userInfo.PartyCost = UserInfo[1][0].partyprice
                       this.$store.state.userInfo.SF = UserInfo[1][0].dangyuanzt
                       this.$Message.success('欢迎登录!')
                       this.$router.push({name:'党员中心'})

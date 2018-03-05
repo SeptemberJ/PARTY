@@ -10,7 +10,10 @@
               <Input type="text" v-model="formTransfer.id_card"></Input>
           </FormItem>
           <FormItem label="工作单位" prop="work">
-              <Input type="text" v-model="formTransfer.work"></Input>
+              <!-- <Input type="text" v-model="formTransfer.work"></Input> -->
+              <Select v-model="formTransfer.work" style="width:200px">
+                  <Option v-for="item in WorkList" :value="item.typename" :key="item.typename">{{item.typename}}</Option>
+              </Select>
           </FormItem>
            <FormItem label="转入党支部" prop="transferMaster">
               <Select v-model="formTransfer.transferMaster" style="width:200px">
@@ -18,7 +21,10 @@
               </Select>
           </FormItem>
            <FormItem label="转出原因" prop="transferReason">
-              <Input type="text" v-model="formTransfer.transferReason"></Input>
+              <!-- <Input type="text" v-model="formTransfer.transferReason"></Input> -->
+              <Select v-model="formTransfer.transferReason" style="width:200px">
+                  <Option v-for="item in ReasonList" :value="item.typename" :key="item.typename">{{item.typename}}</Option>
+              </Select>
           </FormItem>
           <!-- 思想汇报 -->
           <FormItem label="介绍信"  prop="introduce_letter">
@@ -70,6 +76,8 @@ import Spin from '../components/Spin'
       return {
         ifLoading:false,
         MasterList:[],
+        WorkList:[],
+        ReasonList:[],
         formTransfer: {
                     name: '',
                     id_card: '',
@@ -106,9 +114,24 @@ import Spin from '../components/Spin'
       
     },
     created: function () {
+      //支部下拉
       axios.get(R_PRE_URL+'/selectpartybranch.do'
       ).then((res)=> {
         this.MasterList = res.data
+      }).catch((error)=> {
+        console.log(error)
+      })
+      //工作单位下拉
+      axios.post(R_PRE_URL+'/selectgzdw.do'
+      ).then((res)=> {
+        this.WorkList = res.data
+      }).catch((error)=> {
+        console.log(error)
+      })
+      //转出原因
+      axios.post(R_PRE_URL+'/selectzcwhy.do'
+      ).then((res)=> {
+        this.ReasonList = res.data
       }).catch((error)=> {
         console.log(error)
       })
