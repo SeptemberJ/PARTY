@@ -74,11 +74,14 @@
               </Row>
           </FormItem>
           <FormItem>
-            <Row class="marginT_10" v-if="formApplication.personal_img">
+            <Row  type="flex" justify="start" class="code-row-bg marginT_10"  v-if="formApplication.personal_img">
               <Col span="4">
                 <div class="demo-upload-list">
                     <template>
                         <img class="reportImg" :src="formApplication.personal_img">
+                        <div class="demo-upload-list-cover">
+                          <Icon style="color: #000;" type="close-circled" @click.native="handleRemove2(formApplication.personal_img)"></Icon>
+                      </div>
                     </template>
                 </div>
               </Col>
@@ -89,6 +92,7 @@
               <Row>
                 <Col span="4">
                   <Upload
+                  multiple
             ref="upload"
             :show-upload-list="false"
             :on-success="handleSuccess"
@@ -106,20 +110,32 @@
               </Row>
           </FormItem>
           <FormItem>
-            <Row class="marginT_10" v-if="formApplication.report_img">
-              <Col span="4">
+          <Row type="flex" justify="start" class="code-row-bg marginT_10" v-if="formApplication.report_img">
+            <Col span="24">
+              <div class="demo-upload-list" v-for="(Img,Idx) in formApplication.report_img">
+                  <template>
+                      <img :src="Img">
+                      <div class="demo-upload-list-cover">
+                          <Icon style="color: #000;" type="close-circled" @click.native="handleRemove(Img)"></Icon>
+                      </div>
+                  </template>
+              </div>
+            </Col>
+          </Row>
+            <!-- <Row class="marginT_10" v-if="formApplication.report_img">
+              <Col span="24">
                 <div class="demo-upload-list">
                     <template>
-                        <img class="reportImg" :src="formApplication.report_img">
+                        <img v-for="(Img,Idx) in formApplication.report_img" class="reportImg" :src="Img">
                     </template>
                 </div>
               </Col>
-            </Row>
+            </Row> -->
           </FormItem>
           
           <FormItem class="marginT_20">
-              <Button :disabled="ifCanChange" type="primary" @click="handleSubmit('formApplication')">提交</Button>
-              <Button :disabled="ifCanChange" type="ghost" @click="handleReset('formApplication')" style="margin-left: 8px">重置</Button>
+              <Button type="primary" @click="handleSubmit('formApplication')">提交</Button>
+              <Button type="ghost" @click="handleReset('formApplication')" style="margin-left: 8px">重置</Button>
           </FormItem>
       </Form>
     </div>
@@ -157,7 +173,7 @@ import * as Moment from 'moment'
                     introducer2: '',
                     partybranch:'',
                     personal_img:'',
-                    report_img:'',
+                    report_img:[],
                     FileName:'',
                     FileName_report:''
         },
@@ -233,6 +249,7 @@ import * as Moment from 'moment'
         console.log(error)
       })
       //获取填写的申请资料
+      //let ID = localStorage.getItem("user_ID")?localStorage.getItem("user_ID"):''
       axios.get(R_PRE_URL+'/information.do?fscard='+localStorage.getItem("user_ID")
       ).then((res)=> {
         if(res.data.length>0){
@@ -275,6 +292,19 @@ import * as Moment from 'moment'
 
     },
     methods: {
+      //删除
+      handleRemove (file) {
+          const fileList = this.formApplication.report_img
+          fileList.map((item,idx)=>{
+            if(item == file){
+              fileList.splice(idx, 1)
+            }
+          })
+          this.formApplication.report_img = fileList
+      },
+      handleRemove2 (file) {
+          this.formApplication.personal_img = ''
+      },
       handleSubmit (name) {
           this.$refs[name].validate((valid) => {
               if (valid) {
@@ -309,6 +339,10 @@ import * as Moment from 'moment'
       },
       handleReset (name) {
           this.$refs[name].resetFields();
+          this.formApplication.report_img = []
+          this.formApplication.personal_img = ''
+          this.formApplication.introducer1 = ''
+          this.formApplication.introducer2 = ''
       },
       handleSuccess (res, file) {
           // file.url = 'https://o5wwk8baw.qnssl.com/7eb99afb9d5f317c912f08b5212fd69a/avatar';
@@ -321,10 +355,10 @@ import * as Moment from 'moment'
           });
       },
       handleMaxSize (file) {
-          this.$Notice.warning({
-              title: '图片大小警告',
-              desc: '您上传的  ' + file.name + '太大了, 请不要超过2M!'
-          });
+          // this.$Notice.warning({
+          //     title: '图片大小警告',
+          //     desc: '您上传的  ' + file.name + '太大了, 请不要超过2M!'
+          // });
       },
       handleBeforeUpload (event) {
         var _this = this
@@ -343,7 +377,7 @@ import * as Moment from 'moment'
         var reader = new FileReader();   
         reader.readAsDataURL(file);   
         reader.onload = function(e){
-          _this.formApplication.report_img = this.result
+          _this.formApplication.report_img.push(this.result)
         } 
       }
     }
@@ -355,33 +389,32 @@ import * as Moment from 'moment'
     width: 90%;
     margin: 70px auto;
   }
-  demo-upload-list{
+  .demo-upload-list{
         display: inline-block;
-        width: 150px;
-        height: 150px;
+        width: 60px;
+        height: 60px;
         text-align: center;
-        line-height: 150px;
+        line-height: 60px;
         border: 1px solid transparent;
         border-radius: 4px;
-        overflow: hidden;
         background: #fff;
         position: relative;
         box-shadow: 0 1px 1px rgba(0,0,0,.2);
-        margin-right: 4px;
+        margin-right: 10px;
     }
     .demo-upload-list img{
         width: 100%;
         height: 100%;
-        margin: 0 auto;
+        float: left;
     }
     .demo-upload-list-cover{
-        display: none;
+        display: block;
         position: absolute;
-        top: 0;
+        top: -30px;
         bottom: 0;
         left: 0;
-        right: 0;
-        background: rgba(0,0,0,.6);
+        right: -60px;
+        
     }
     .demo-upload-list:hover .demo-upload-list-cover{
         display: block;
@@ -392,14 +425,10 @@ import * as Moment from 'moment'
         cursor: pointer;
         margin: 0 2px;
     }
-    .ivu-upload-drag{
-      border:0px solid #ccc !important;
-    }
   
 }
 .reportImg{
-      width: 150px;
-      height: auto;
+      float: left;
 }
 @media screen and (max-width: 767px) {
     .MainBox{

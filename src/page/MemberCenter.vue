@@ -28,7 +28,7 @@
         <Col span="12" class="TextLeft">{{userInfo.JoinTime}}</Col>
       </Row>
       <Row class="marginT_10" v-if="Type==0">
-        <Col span="12" class="TextRight"><b>工作单位：</b></Col>
+        <Col span="12" class="TextRight"><b>所在部门：</b></Col>
         <Col span="12" class="TextLeft">{{userInfo.WorkUnit}}</Col>
       </Row>
       <Row class="marginT_10" v-if="Type==0">
@@ -39,7 +39,11 @@
         <Col span="12" class="TextRight"><b>目前身份：</b></Col>
         <Col span="12" class="TextLeft">{{userInfo.SF}}</Col>
       </Row>
-      <Row class="marginT_10" v-if="userInfo.FeedBack">
+      <Row class="marginT_10" v-if="Type==0">
+        <Col span="12" class="TextRight"><b>组织接转信息：</b></Col>
+        <Col span="12" class="TextLeft">{{userInfo.TranferRelation}}</Col>
+      </Row>
+      <Row class="marginT_10" v-if="userInfo.FeedBack !='' && userInfo.FeedBack !='undefined'">
         <Col span="24">
           <Alert type="warning" class="TextLeft">
             {{userInfo.ydate}}
@@ -50,7 +54,7 @@
         </Col>
       </Row>
 
-      <Row class="marginT_10" v-if="userInfo.ZRFeedBack">
+      <Row class="marginT_10" v-if="userInfo.ZRFeedBack && userInfo.ZRFeedBack != 'null'">
         <Col span="24">
           <Alert type="warning" class="TextLeft">
             {{userInfo.zrdate}}
@@ -64,6 +68,7 @@
       <Row v-if="Type==1">
         <Col span="24">
           <Upload
+          multiple
             :format="['jpg','jpeg','png']"
             :max-size="2048"
             :on-format-error="handleFormatError"
@@ -77,52 +82,29 @@
           </Upload>
         </Col>
       </Row>
-      <Row class="marginT_10" v-if="reportSource">
+      <Row type="flex" justify="start" class="code-row-bg marginT_10" v-if="reportSource.length>0">
         <Col span="24">
-          <div class="demo-upload-list">
+          <div class="demo-upload-list" v-for="(Img,Idx) in reportSource">
               <template>
-                  <img class="reportImg" :src="reportSource">
+                  <img :src="Img">
+                  <div class="demo-upload-list-cover">
+                      <Icon style="color: #000;" type="close-circled" @click.native="handleRemove(Img)"></Icon>
+                  </div>
               </template>
           </div>
         </Col>
       </Row>
-      <Row class="marginT_10" v-if="reportSource">
+      <Row class="marginT_10" v-if="reportSource.length>0">
         <Col span="24">
           <Button type="primary" @click="submitReport">提交</Button>
         </Col>
       </Row>
 
-      <Row class="marginT_10">
-        <Col span="24">
+      <Row type="flex" justify="center" class="code-row-bg marginT_10">
+        <Col span="12">
           <Button type="error" long @click="LoginOut">退出登录</Button>
         </Col>
       </Row>
-
-
-      
-      
-
-      <!-- <Row>
-        <Col span="10">
-          <Upload
-    ref="upload"
-    :show-upload-list="false"
-    :on-success="handleSuccess"
-    :format="['jpg','jpeg','png']"
-    :max-size="2048"
-    :on-format-error="handleFormatError"
-    :on-exceeded-size="handleMaxSize"
-    :before-upload="handleBeforeUpload"
-    multiple
-    type="drag"
-    action=""
-    style="display: inline-block;">
-            <div class="demo-upload-list">
-              <img class="reportImg" :src="reportSource">
-            </div>
-          </Upload>
-        </Col>
-      </Row> -->
     </div>
     </PullRefresh>
     <Spin v-if="ifLoading"></Spin>
@@ -139,7 +121,7 @@ import PullRefresh from '../components/PullRefresh'
       return {
         ifLoading:false,
         feedback:'',
-        reportSource:'',
+        reportSource:[],
         FileName:'',
         scrollData: {
             noFlag: false //暂无更多数据显示
@@ -154,10 +136,16 @@ import PullRefresh from '../components/PullRefresh'
     },
     computed: {
       userInfo(){
+        console.log(this.$store.state.userInfo)
             return this.$store.state.userInfo
       },
-      Type(){
-          return this.$store.state.userInfo.Type
+      Type: {
+          get: function () {
+            return this.$store.state.userInfo.Type
+          },
+          set: function (newValue) {
+            this.$store.state.userInfo.Type = newValue
+          }
       }
       
     },
@@ -186,14 +174,16 @@ import PullRefresh from '../components/PullRefresh'
         this.$store.state.ifLogined = false
         this.$router.push({name:'首页'});
       },
-      // handleView (name) {
-      //           this.imgName = name;
-      //           this.visible = true;
-      // },
-      // handleRemove (file) {
-      //     const fileList = this.$refs.upload.fileList;
-      //     this.$refs.upload.fileList.splice(fileList.indexOf(file), 1);
-      // },
+      //删除
+      handleRemove (file) {
+          const fileList = this.reportSource;
+          fileList.map((item,idx)=>{
+            if(item == file){
+              fileList.splice(idx, 1)
+            }
+          })
+          this.reportSource = fileList
+      },
       handleSuccess (res, file) {
           // file.url = 'https://o5wwk8baw.qnssl.com/7eb99afb9d5f317c912f08b5212fd69a/avatar';
           // file.name = '7eb99afb9d5f317c912f08b5212fd69a';
@@ -205,10 +195,10 @@ import PullRefresh from '../components/PullRefresh'
           });
       },
       handleMaxSize (file) {
-          this.$Notice.warning({
-              title: '图片大小警告',
-              desc: '您上传的  ' + file.name + '太大了, 请不要超过2M!'
-          });
+          // this.$Notice.warning({
+          //     title: '图片大小警告',
+          //     desc: '您上传的  ' + file.name + '太大了, 请不要超过2M!'
+          // });
       },
       handleBeforeUpload (event) {
         var _this = this
@@ -221,7 +211,7 @@ import PullRefresh from '../components/PullRefresh'
           let reg = /^data:image\/(jpeg|png|gif);base64,/
           //console.log(this.result.replace(reg, ""))
           console.log(this.result)
-          _this.reportSource = this.result
+          _this.reportSource.push(this.result)
         } 
       },
       //提交思想汇报
@@ -229,8 +219,7 @@ import PullRefresh from '../components/PullRefresh'
         this.ifLoading = true
         let DATA = {
             id_card:this.$store.state.userInfo.IdCard,
-            report:this.reportSource,
-            fileName:this.FileName
+            report:this.reportSource
           }
           axios.post(R_PRE_URL+'/updatesxhb.do?',DATA
           ).then((res)=> {
@@ -242,8 +231,7 @@ import PullRefresh from '../components/PullRefresh'
               case 1:
               this.ifLoading = false
               this.$Message.success('提交成功!')
-              this.reportSource = ''
-              this.FileName = ''
+              this.reportSource = []
               break
               default:
               this.ifLoading = false
@@ -263,6 +251,7 @@ import PullRefresh from '../components/PullRefresh'
           switch(UserInfo[0]){
             case 0:
             this.ifLoading = false
+            this.Type = 0
             let Info = {
               user_Name:UserInfo[1][0].fname,
               user_Master:UserInfo[1][0].partybranch,
@@ -281,8 +270,13 @@ import PullRefresh from '../components/PullRefresh'
             localStorage.setItem("user_JoinTime",Info.user_JoinTime)
             localStorage.setItem("user_PartyPosition",Info.user_PartyPosition)
             localStorage.setItem("user_LearnSituation",Info.user_LearnSituation)
-            //localStorage.setItem("user_ID",this.formInline.id_card)
+            localStorage.setItem("user_ID",this.formInline.id_card)
             localStorage.setItem("user_Type",Info.user_Type)
+            localStorage.setItem("user_PartyCost",UserInfo[1][0].partyprice)
+            localStorage.setItem("user_WorkUnit",UserInfo[1][0].unit)
+            localStorage.setItem("user_JNPosition",UserInfo[1][0].jnzw)
+            localStorage.setItem("user_TranferRelation",UserInfo[1][0].zzrinfo)
+            
             this.$store.state.ifLogined = true
             this.$store.state.userInfo.Name = Info.user_Name
             this.$store.state.userInfo.FeedBack = UserInfo[1][0].feedback
@@ -293,35 +287,78 @@ import PullRefresh from '../components/PullRefresh'
             this.$store.state.userInfo.JoinTime = Info.user_JoinTime
             this.$store.state.userInfo.PartyPosition = Info.user_PartyPosition
             this.$store.state.userInfo.LearnSituation = Info.user_LearnSituation
-            this.$store.state.userInfo.IdCard = UserInfo[1][0].fscard
+            this.$store.state.userInfo.IdCard = this.formInline.id_card
+            this.$store.state.userInfo.PartyCost = UserInfo[1][0].partyprice
+            this.$store.state.userInfo.WorkUnit = UserInfo[1][0].unit
+            this.$store.state.userInfo.JNPosition = UserInfo[1][0].jnzw
+            this.$store.state.userInfo.TranferRelation = UserInfo[1][0].zzrinfo
             this.$store.state.userInfo.Type = Info.user_Type
-            this.$Message.success('欢迎登录!')
-            this.$router.push({name:'党员中心'});
+            // localStorage.setItem("user_Logined",true)
+            // localStorage.setItem("user_Name",Info.user_Name)
+            // localStorage.setItem("user_FeedBack",UserInfo[1][0].feedback)
+            // localStorage.setItem("user_ZRFeedBack",UserInfo[1][0].zrfeedback)
+            // localStorage.setItem("user_ydate",UserInfo[1][0].ydate)
+            // localStorage.setItem("user_zrdate",UserInfo[1][0].zrdate)
+            // localStorage.setItem("user_Master",Info.user_Master)
+            // localStorage.setItem("user_JoinTime",Info.user_JoinTime)
+            // localStorage.setItem("user_PartyPosition",Info.user_PartyPosition)
+            // localStorage.setItem("user_LearnSituation",Info.user_LearnSituation)
+            //localStorage.setItem("user_ID",this.formInline.id_card)
+            // localStorage.setItem("user_Type",0)
+            // this.$store.state.ifLogined = true
+            // this.$store.state.userInfo.Name = Info.user_Name
+            // this.$store.state.userInfo.FeedBack = UserInfo[1][0].feedback
+            // this.$store.state.userInfo.ZRFeedBack = UserInfo[1][0].zrfeedback
+            // this.$store.state.userInfo.ydate = UserInfo[1][0].ydate
+            // this.$store.state.userInfo.zrdate = UserInfo[1][0].zrdate
+            // this.$store.state.userInfo.Master = Info.user_Master
+            // this.$store.state.userInfo.JoinTime = Info.user_JoinTime
+            // this.$store.state.userInfo.PartyPosition = Info.user_PartyPosition
+            // this.$store.state.userInfo.LearnSituation = Info.user_LearnSituation
+            // this.$store.state.userInfo.IdCard = UserInfo[1][0].fscard
+            // this.$store.state.userInfo.Type = 0
+            // this.$Message.success('欢迎登录!')
             break
             case 1:
             this.ifLoading = false
+            this.Type = 1
             localStorage.setItem("user_Logined",true)
             localStorage.setItem("user_ID",this.formInline.id_card)
             localStorage.setItem("user_Name",UserInfo[1][0].fname)
             localStorage.setItem("user_FeedBack",UserInfo[1][0].feedback)
-            localStorage.setItem("user_ZRFeedBack",UserInfo[1][0].zrfeedback)
+            localStorage.setItem("user_ZRFeedBack",null)
             localStorage.setItem("user_ydate",UserInfo[1][0].ydate)
-            localStorage.setItem("user_zrdate",UserInfo[1][0].zrdate)
+            localStorage.setItem("user_zrdate",null)
             localStorage.setItem("user_Type",UserInfo[0])
             localStorage.setItem("user_SF",UserInfo[1][0].dangyuanzt)
             this.$store.state.ifLogined = true
-            this.$store.state.userInfo.IdCard = UserInfo[1][0].fscard
+            this.$store.state.userInfo.IdCard = this.formInline.id_card
             this.$store.state.userInfo.Name = UserInfo[1][0].fname
             this.$store.state.userInfo.FeedBack = UserInfo[1][0].feedback
-            this.$store.state.userInfo.ZRFeedBack = UserInfo[1][0].zrfeedback
+            this.$store.state.userInfo.ZRFeedBack = null
             this.$store.state.userInfo.ydate = UserInfo[1][0].ydate
-            this.$store.state.userInfo.zrdate = UserInfo[1][0].zrdate
+            this.$store.state.userInfo.zrdate = null
             this.$store.state.userInfo.Type = UserInfo[0]
             this.$store.state.userInfo.SF = UserInfo[1][0].dangyuanzt
-            this.$Message.success('欢迎登录!')
-            //this.$router.push({name:'党员中心'})
-            console.log(this.userInfo)
-            console.log(this.$store.state.userInfo)
+            // localStorage.setItem("user_Logined",true)
+            // localStorage.setItem("user_ID",this.formInline.id_card)
+            // localStorage.setItem("user_Name",UserInfo[1][0].fname)
+            // localStorage.setItem("user_FeedBack",UserInfo[1][0].feedback)
+            // localStorage.setItem("user_ZRFeedBack",null)
+            // localStorage.setItem("user_ydate",UserInfo[1][0].ydate)
+            // localStorage.setItem("user_zrdate",null)
+            // localStorage.setItem("user_Type",1)
+            // localStorage.setItem("user_SF",UserInfo[1][0].dangyuanzt)
+            // this.$store.state.ifLogined = true
+            // this.$store.state.userInfo.IdCard = UserInfo[1][0].fscard
+            // this.$store.state.userInfo.Name = UserInfo[1][0].fname
+            // this.$store.state.userInfo.FeedBack = UserInfo[1][0].feedback
+            // this.$store.state.userInfo.ZRFeedBack = null
+            // this.$store.state.userInfo.ydate = UserInfo[1][0].ydate
+            // this.$store.state.userInfo.zrdate = null
+            // this.$store.state.userInfo.Type = 1
+            // this.$store.state.userInfo.SF = UserInfo[1][0].dangyuanzt
+            // this.$Message.success('欢迎登录!')
             break
             case 2:
             this.ifLoading = false
@@ -332,7 +369,7 @@ import PullRefresh from '../components/PullRefresh'
         }).catch((error)=> {
           console.log(error)
         })
-      }
+      },
     }
   }
 </script>
@@ -350,8 +387,43 @@ import PullRefresh from '../components/PullRefresh'
       width: 150px;
       height: auto;
     }
-
   }
+   .demo-upload-list{
+        display: inline-block;
+        width: 60px;
+        height: 60px;
+        text-align: center;
+        line-height: 60px;
+        border: 1px solid transparent;
+        border-radius: 4px;
+        background: #fff;
+        position: relative;
+        box-shadow: 0 1px 1px rgba(0,0,0,.2);
+        margin-right: 10px;
+    }
+    .demo-upload-list img{
+        width: 100%;
+        height: 100%;
+        float: left;
+    }
+    .demo-upload-list-cover{
+        display: block;
+        position: absolute;
+        top: -30px;
+        bottom: 0;
+        left: 0;
+        right: -60px;
+        
+    }
+    .demo-upload-list:hover .demo-upload-list-cover{
+        display: block;
+    }
+    .demo-upload-list-cover i{
+        color: #fff;
+        font-size: 20px;
+        cursor: pointer;
+        margin: 0 2px;
+    }
 }
 .ivu-row{
     text-align: center !important;

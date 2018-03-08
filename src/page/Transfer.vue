@@ -10,10 +10,10 @@
               <Input type="text" v-model="formTransfer.id_card"></Input>
           </FormItem>
           <FormItem label="工作单位" prop="work">
-              <!-- <Input type="text" v-model="formTransfer.work"></Input> -->
-              <Select v-model="formTransfer.work" style="width:200px">
+              <Input type="text" v-model="formTransfer.work"></Input>
+              <!-- <Select v-model="formTransfer.work" style="width:200px">
                   <Option v-for="item in WorkList" :value="item.typename" :key="item.typename">{{item.typename}}</Option>
-              </Select>
+              </Select> -->
           </FormItem>
            <FormItem label="转入党支部" prop="transferMaster">
               <Select v-model="formTransfer.transferMaster" style="width:200px">
@@ -31,6 +31,7 @@
               <Row>
                 <Col span="4">
                   <Upload
+                  multiple
             :show-upload-list="false"
             :on-success="handleSuccess"
             :format="['jpg','jpeg','png']"
@@ -47,11 +48,14 @@
               </Row>
           </FormItem>
           <FormItem>
-            <Row class="marginT_10" v-if="formTransfer.introduce_letter">
-              <Col span="4">
-                <div class="demo-upload-list">
+            <Row type="flex" justify="start" class="code-row-bg marginT_10" v-if="formTransfer.introduce_letter">
+              <Col span="24">
+                <div class="demo-upload-list" v-for="(Img,Idx) in formTransfer.introduce_letter">
                     <template>
-                        <img class="reportImg" :src="formTransfer.introduce_letter">
+                        <img class="reportImg" :src="Img">
+                        <div class="demo-upload-list-cover">
+                            <Icon style="color: #000;" type="close-circled" @click.native="handleRemove(Img)"></Icon>
+                        </div>
                     </template>
                 </div>
               </Col>
@@ -84,8 +88,7 @@ import Spin from '../components/Spin'
                     work: '',
                     transferMaster:'',
                     transferReason:'',
-                    FileName:'',
-                    introduce_letter:''
+                    introduce_letter:[]
         },
         ruleTransfer: {
             name: [
@@ -113,7 +116,7 @@ import Spin from '../components/Spin'
     mounted: function () {
       
     },
-    created: function () {
+    created() {
       //支部下拉
       axios.get(R_PRE_URL+'/selectpartybranch.do'
       ).then((res)=> {
@@ -122,12 +125,12 @@ import Spin from '../components/Spin'
         console.log(error)
       })
       //工作单位下拉
-      axios.post(R_PRE_URL+'/selectgzdw.do'
-      ).then((res)=> {
-        this.WorkList = res.data
-      }).catch((error)=> {
-        console.log(error)
-      })
+      // axios.post(R_PRE_URL+'/selectgzdw.do'
+      // ).then((res)=> {
+      //   this.WorkList = res.data
+      // }).catch((error)=> {
+      //   console.log(error)
+      // })
       //转出原因
       axios.post(R_PRE_URL+'/selectzcwhy.do'
       ).then((res)=> {
@@ -150,6 +153,16 @@ import Spin from '../components/Spin'
 
     },
     methods: {
+      //删除
+      handleRemove (file) {
+          const fileList = this.formTransfer.introduce_letter;
+          fileList.map((item,idx)=>{
+            if(item == file){
+              fileList.splice(idx, 1)
+            }
+          })
+          this.formTransfer.introduce_letter = fileList
+      },
       handleSuccess (res, file) {
           // file.url = 'https://o5wwk8baw.qnssl.com/7eb99afb9d5f317c912f08b5212fd69a/avatar';
           // file.name = '7eb99afb9d5f317c912f08b5212fd69a';
@@ -161,19 +174,19 @@ import Spin from '../components/Spin'
           });
       },
       handleMaxSize (file) {
-          this.$Notice.warning({
-              title: '图片大小警告',
-              desc: '您上传的  ' + file.name + '太大了, 请不要超过2M!'
-          });
+          // this.$Notice.warning({
+          //     title: '图片大小警告',
+          //     desc: '您上传的  ' + file.name + '太大了, 请不要超过2M!'
+          // });
       },
       handleBeforeUpload (event) {
         var _this = this
         var file = event
-        _this.formTransfer.FileName = file.name
+        // _this.formTransfer.FileName = file.name
         var reader = new FileReader();   
         reader.readAsDataURL(file);   
         reader.onload = function(e){
-          _this.formTransfer.introduce_letter = this.result
+          _this.formTransfer.introduce_letter.push(this.result)
         } 
       },
       handleSubmit (name) {
@@ -196,7 +209,7 @@ import Spin from '../components/Spin'
                     break
                     default:
                     this.ifLoading = false
-                    this.$Message.error('接口报错!')
+                    this.$Message.error('系统繁忙!')
                   }
                 }).catch((error)=> {
                   console.log(error)
@@ -208,6 +221,7 @@ import Spin from '../components/Spin'
       },
       handleReset (name) {
           this.$refs[name].resetFields();
+          this.formTransfer.introduce_letter = []
       },
     }
   }
@@ -218,6 +232,44 @@ import Spin from '../components/Spin'
     width: 90%;
     margin: 70px auto;
   }
+  .demo-upload-list{
+        display: inline-block;
+        width: 60px;
+        height: 60px;
+        text-align: center;
+        line-height: 60px;
+        border: 1px solid transparent;
+        border-radius: 4px;
+        background: #fff;
+        position: relative;
+        box-shadow: 0 1px 1px rgba(0,0,0,.2);
+        margin-right: 10px;
+    }
+    .demo-upload-list img{
+        width: 100%;
+        height: 100%;
+        float: left;
+    }
+    .demo-upload-list-cover{
+        display: block;
+        position: absolute;
+        top: -30px;
+        bottom: 0;
+        left: 0;
+        right: -60px;
+        
+    }
+    .demo-upload-list:hover .demo-upload-list-cover{
+        display: block;
+    }
+    .demo-upload-list-cover i{
+        color: #fff;
+        font-size: 20px;
+        cursor: pointer;
+        margin: 0 2px;
+    }
+
+
 }
 @media screen and (max-width: 767px) {
     .MainBox{

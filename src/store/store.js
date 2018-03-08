@@ -19,12 +19,13 @@ const store = new Vuex.Store({
       WorkUnit:localStorage.getItem("user_WorkUnit"),
       JNPosition:localStorage.getItem("user_JNPosition"),
       PartyCost:localStorage.getItem("user_PartyCost"),
+      TranferRelation:localStorage.getItem("user_TranferRelation"),
       Type:-1,
       FeedBack:localStorage.getItem("user_FeedBack"),
       ZRFeedBack:localStorage.getItem("user_ZRFeedBack"),
       ydate:localStorage.getItem("user_ydate"),
       zrdate:localStorage.getItem("user_zrdate"),
-      SF:localStorage.getItem("user_SF"), //费正式党员身份类型
+      SF:localStorage.getItem("user_SF"), //正式党员身份类型
     },
     ifLogined:localStorage.getItem("user_Logined"),
     VideoSource:''

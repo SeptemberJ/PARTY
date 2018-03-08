@@ -48,6 +48,7 @@
               <Row>
                 <Col span="4">
                   <Upload
+                  multiple
             ref="upload"
             :show-upload-list="false"
             :on-success="handleSuccess"
@@ -65,7 +66,19 @@
               </Row>
           </FormItem>
           <FormItem>
-            <Row class="marginT_10" v-if="formFindOrganization.file">
+            <Row type="flex" justify="start" class="code-row-bg marginT_10">
+              <Col span="24">
+                <div class="demo-upload-list" v-for="(Img,Idx) in formFindOrganization.file">
+                    <template>
+                        <img :src="Img">
+                        <div class="demo-upload-list-cover">
+                            <Icon style="color: #000;" type="close-circled" @click.native="handleRemove(Img)"></Icon>
+                        </div>
+                    </template>
+                </div>
+              </Col>
+            </Row>
+            <!-- <Row class="marginT_10" v-if="formFindOrganization.file">
               <Col span="6">
                 <div class="demo-upload-list">
                     <template>
@@ -73,7 +86,7 @@
                     </template>
                 </div>
               </Col>
-            </Row>
+            </Row> -->
           </FormItem>
 
           
@@ -114,7 +127,7 @@ import * as Moment from 'moment'
                     payDate: '',
                     entryPartyTime: '',
                     status: '',
-                    file: '',
+                    file: [],
                     FileName:''
 
         },
@@ -202,6 +215,16 @@ import * as Moment from 'moment'
 
     },
     methods: {
+      //删除
+      handleRemove (file) {
+          const fileList = this.formFindOrganization.file;
+          fileList.map((item,idx)=>{
+            if(item == file){
+              fileList.splice(idx, 1)
+            }
+          })
+          this.formFindOrganization.file = fileList
+      },
       handleSubmit (name) {
           this.$refs[name].validate((valid) => {
               if (valid) {
@@ -240,6 +263,7 @@ import * as Moment from 'moment'
       },
       handleReset (name) {
           this.$refs[name].resetFields();
+          this.formFindOrganization.file = []
       },
       handleSuccess (res, file) {
           // file.url = 'https://o5wwk8baw.qnssl.com/7eb99afb9d5f317c912f08b5212fd69a/avatar';
@@ -252,10 +276,10 @@ import * as Moment from 'moment'
           });
       },
       handleMaxSize (file) {
-          this.$Notice.warning({
-              title: '图片大小警告',
-              desc: '您上传的  ' + file.name + '太大了, 请不要超过2M!'
-          });
+          // this.$Notice.warning({
+          //     title: '图片大小警告',
+          //     desc: '您上传的  ' + file.name + '太大了, 请不要超过2M!'
+          // });
       },
       handleBeforeUpload (event) {
         var _this = this
@@ -267,7 +291,7 @@ import * as Moment from 'moment'
         reader.onload = function(e){
           let reg = /^data:image\/(jpeg|png|gif);base64,/
           //console.log(this.result.replace(reg, ""))
-          _this.formFindOrganization.file = this.result
+          _this.formFindOrganization.file.push(this.result)
         } 
       }
     }
@@ -279,33 +303,32 @@ import * as Moment from 'moment'
     width: 90%;
     margin: 70px auto;
   }
-  demo-upload-list{
+  .demo-upload-list{
         display: inline-block;
-        width: 150px;
-        height: 150px;
+        width: 60px;
+        height: 60px;
         text-align: center;
-        line-height: 150px;
+        line-height: 60px;
         border: 1px solid transparent;
         border-radius: 4px;
-        overflow: hidden;
         background: #fff;
         position: relative;
         box-shadow: 0 1px 1px rgba(0,0,0,.2);
-        margin-right: 4px;
+        margin-right: 10px;
     }
     .demo-upload-list img{
         width: 100%;
         height: 100%;
-        margin: 0 auto;
+        float: left;
     }
     .demo-upload-list-cover{
-        display: none;
+        display: block;
         position: absolute;
-        top: 0;
+        top: -30px;
         bottom: 0;
         left: 0;
-        right: 0;
-        background: rgba(0,0,0,.6);
+        right: -60px;
+        
     }
     .demo-upload-list:hover .demo-upload-list-cover{
         display: block;
@@ -315,9 +338,6 @@ import * as Moment from 'moment'
         font-size: 20px;
         cursor: pointer;
         margin: 0 2px;
-    }
-    .ivu-upload-drag{
-      border:0px solid #ccc !important;
     }
   
 }

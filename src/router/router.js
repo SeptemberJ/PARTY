@@ -24,15 +24,15 @@ const routes = [
     children: [
     {path: '/Index', name: '首页', component: Index},
     {path: '/Login', name: '登录', component: Login},
-    {path: '/TransferPre', name: '组织关系接转', component: TransferPre},
-    {path: '/Transfer', name: '组织关系接转资料填写', component: Transfer},
+    {path: '/TransferPre', name: '组织关系接转', component: TransferPre,meta: {requireAuth: true}},
+    {path: '/Transfer', name: '组织关系接转资料填写', component: Transfer,meta: {requireAuth: true}},
     {path: '/ApplicationPre', name: '入党申请', component: ApplicationPre},
     {path: '/Application', name: '入党申请资料填写', component: Application},
     {path: '/Learn', name: '三会一课', component: Learn},
     {path: '/VideoDetail/:id', name: '详情', component: VideoDetail},
-    {path: '/MemberCenter', name: '党员中心', component: MemberCenter},
-    {path: '/FindOrganizationPre', name: '流动党员找组织', component: FindOrganizationPre},
-    {path: '/FindOrganization', name: '流动党员找组织资料填写', component: FindOrganization},
+    {path: '/MemberCenter', name: '党员中心', component: MemberCenter,meta: {requireAuth: true}},
+    {path: '/FindOrganizationPre', name: '流动党员找组织', component: FindOrganizationPre,meta: {requireAuth: true}},
+    {path: '/FindOrganization', name: '流动党员找组织资料填写', component: FindOrganization,meta: {requireAuth: true}},
       {path:'*', redirect: '/Index'}
       // {path: '/article/:id', name: 'article', component: Article},
     ]
@@ -49,7 +49,7 @@ const router = new VueRouter({
 //登录控制
 router.beforeEach((to, from, next) => {
     if (to.meta.requireAuth) {  // 判断该路由是否需要登录权限
-        if (localStorage.getItem("user_token")) {  // 通过vuex state获取当前的token是否存在
+        if (localStorage.getItem("user_ID")) {  // 通过vuex state获取当前的token是否存在
             next();
         }
         else {

@@ -85,8 +85,11 @@ import Spin from '../components/Spin'
                       localStorage.setItem("user_LearnSituation",Info.user_LearnSituation)
                       localStorage.setItem("user_ID",this.formInline.id_card)
                       localStorage.setItem("user_Type",Info.user_Type)
+                      localStorage.setItem("user_PartyCost",UserInfo[1][0].partyprice)
                       localStorage.setItem("user_WorkUnit",UserInfo[1][0].unit)
                       localStorage.setItem("user_JNPosition",UserInfo[1][0].jnzw)
+                      localStorage.setItem("user_TranferRelation",UserInfo[1][0].zzrinfo)
+
                       this.$store.state.ifLogined = true
                       this.$store.state.userInfo.Name = Info.user_Name
                       this.$store.state.userInfo.FeedBack = UserInfo[1][0].feedback
@@ -98,11 +101,13 @@ import Spin from '../components/Spin'
                       this.$store.state.userInfo.PartyPosition = Info.user_PartyPosition
                       this.$store.state.userInfo.LearnSituation = Info.user_LearnSituation
                       this.$store.state.userInfo.IdCard = this.formInline.id_card
+                      this.$store.state.userInfo.PartyCost = UserInfo[1][0].partyprice
                       this.$store.state.userInfo.WorkUnit = UserInfo[1][0].unit
                       this.$store.state.userInfo.JNPosition = UserInfo[1][0].jnzw
                       this.$store.state.userInfo.Type = Info.user_Type
-                      this.$Message.success('欢迎登录!')
+                      this.$store.state.userInfo.TranferRelation = UserInfo[1][0].zzrinfo
                       this.$router.push({name:'党员中心'});
+                      this.$Message.success('欢迎登录!')
                       break
                       case 1:
                       this.ifLoading = false
@@ -110,30 +115,27 @@ import Spin from '../components/Spin'
                       localStorage.setItem("user_ID",this.formInline.id_card)
                       localStorage.setItem("user_Name",UserInfo[1][0].fname)
                       localStorage.setItem("user_FeedBack",UserInfo[1][0].feedback)
-                      localStorage.setItem("user_ZRFeedBack",UserInfo[1][0].zrfeedback)
+                      localStorage.setItem("user_ZRFeedBack",null)
                       localStorage.setItem("user_ydate",UserInfo[1][0].ydate)
-                      localStorage.setItem("user_zrdate",UserInfo[1][0].zrdate)
+                      localStorage.setItem("user_zrdate",null)
                       localStorage.setItem("user_Type",UserInfo[0])
-                      localStorage.setItem("user_user_PartyCost",UserInfo[0].partyprice)
                       localStorage.setItem("user_SF",UserInfo[1][0].dangyuanzt)
                       this.$store.state.ifLogined = true
                       this.$store.state.userInfo.IdCard = this.formInline.id_card
                       this.$store.state.userInfo.Name = UserInfo[1][0].fname
                       this.$store.state.userInfo.FeedBack = UserInfo[1][0].feedback
-                      this.$store.state.userInfo.ZRFeedBack = UserInfo[1][0].zrfeedback
+                      this.$store.state.userInfo.ZRFeedBack = null
                       this.$store.state.userInfo.ydate = UserInfo[1][0].ydate
-                      this.$store.state.userInfo.zrdate = UserInfo[1][0].zrdate
+                      this.$store.state.userInfo.zrdate = null
                       this.$store.state.userInfo.Type = UserInfo[0]
-                      this.$store.state.userInfo.PartyCost = UserInfo[1][0].partyprice
                       this.$store.state.userInfo.SF = UserInfo[1][0].dangyuanzt
-                      this.$Message.success('欢迎登录!')
                       this.$router.push({name:'党员中心'})
+                      this.$Message.success('欢迎登录!')
                       break
                       case 2:
                       this.ifLoading = false
-                      this.$Message.error('输入的身份证号有误或还未申请党员!');
+                      this.$Message.error('输入的身份证号有误或还未申请党员!')
                       break
-
                     }
                   }).catch((error)=> {
                     console.log(error)
