@@ -3,6 +3,12 @@
     <BackBar></BackBar>
     <div class="MainBox">
       <Form ref="formFindOrganization" :model="formFindOrganization" :rules="ruleformFindOrganization" :label-width="100">
+          <FormItem label="是否为党员" prop="ifPartyMmember">
+              <RadioGroup v-model="formFindOrganization.ifPartyMmember">
+                  <Radio label="是"></Radio>
+                  <Radio label="否"></Radio>
+              </RadioGroup>
+          </FormItem>
           <FormItem label="姓名" prop="name">
               <Input type="text" v-model="formFindOrganization.name"></Input>
           </FormItem>
@@ -21,8 +27,13 @@
           <FormItem label="原组织名称" prop="OldOrg">
               <Input type="text" v-model="formFindOrganization.OldOrg"></Input>
           </FormItem>
-          <FormItem label="转入组织名称" prop="JoinOrg">
+          <!-- <FormItem label="转入组织名称" prop="JoinOrg">
               <Input type="text" v-model="formFindOrganization.JoinOrg"></Input>
+          </FormItem> -->
+          <FormItem label="加入党组织" prop="JoinOrg">
+              <Select v-model="formFindOrganization.JoinOrg" style="width:200px">
+                  <Option v-for="item in MasterList" :value="item.fparty" :key="item.id">{{item.fparty}}</Option>
+              </Select>
           </FormItem>
           <FormItem label="学历" prop="education">
               <Select v-model="formFindOrganization.education" style="width:200px">
@@ -32,18 +43,21 @@
           <FormItem label="手机号" prop="phone">
               <Input type="text" v-model="formFindOrganization.phone"></Input>
           </FormItem>
+          <FormItem label="工作单位" prop="workUnit">
+              <Input type="text" v-model="formFindOrganization.workUnit"></Input>
+          </FormItem>
           <FormItem label="单位职务" prop="position">
               <Input type="text" v-model="formFindOrganization.position"></Input>
           </FormItem>
-          <FormItem label="党费缴纳时间" prop="payDate">
+         <!--  <FormItem label="党费缴纳时间" prop="payDate">
               <DatePicker type="date" placeholder="请选择入学时间" v-model="formFindOrganization.payDate"></DatePicker>
-          </FormItem>
+          </FormItem> -->
           <FormItem label="入党时间" prop="entryPartyTime">
               <DatePicker type="date" placeholder="请选择入学时间" v-model="formFindOrganization.entryPartyTime"></DatePicker>
           </FormItem>
-          <FormItem label="党员状态" prop="status">
+          <!-- <FormItem label="党员状态" prop="status">
               <Input type="text" v-model="formFindOrganization.status"></Input>
-          </FormItem>
+          </FormItem> -->
           <FormItem label="上传资料">
               <Row>
                 <Col span="4">
@@ -112,9 +126,11 @@ import * as Moment from 'moment'
       return {
         ifLoading:false,
         ifCanChange:'', //是否显示提交按钮
+        MasterList:[],
         educationList:[],
-        organizationList:[],
+        // organizationList:[],
         formFindOrganization: {
+                    ifPartyMmember:'是',
                     name: '',
                     sex: '',
                     nation: '',
@@ -123,10 +139,11 @@ import * as Moment from 'moment'
                     JoinOrg: '',
                     education: '',
                     phone: '',
+                    workUnit:'',
                     position: '',
-                    payDate: '',
+                    // payDate: '',
                     entryPartyTime: '',
-                    status: '',
+                    // status: '',
                     file: [],
                     FileName:''
 
@@ -144,9 +161,9 @@ import * as Moment from 'moment'
             id_card: [
                 { required: true, message: '请输入身份证号！', trigger: 'blur' }
             ],
-            OldOrg: [
-                { required: true, message: '请输入原组织名称！', trigger: 'change' }
-            ],
+            // OldOrg: [
+            //     { required: true, message: '请输入原组织名称！', trigger: 'change' }
+            // ],
             JoinOrg: [
                 { required: true, message: '请输入转入组织名称！', trigger: 'change' }
             ],
@@ -156,18 +173,21 @@ import * as Moment from 'moment'
             phone: [
                 { required: true, message: '请选择学历！', trigger: 'change' }
             ],
+            workUnit: [
+                { required: true, message: '请输入工作单位！', trigger: 'blur' }
+            ],
             position: [
                 { required: true, message: '请输入手机号！', trigger: 'change' }
             ],
-            payDate: [
-                { required: true, type: 'date', message: '请选择党费缴纳时间！', trigger: 'change' }
-            ],
+            // payDate: [
+            //     { required: true, type: 'date', message: '请选择党费缴纳时间！', trigger: 'change' }
+            // ],
             entryPartyTime: [
                 { required: true, type: 'date', message: '请选择入党时间！', trigger: 'change' }
             ],
-            status: [
-                { required: true, message: '请选择党员状态！', trigger: 'change' }
-            ],
+            // status: [
+            //     { required: true, message: '请选择党员状态！', trigger: 'change' }
+            // ],
             file: [
                 { required: true, message: '请上传资料！', trigger: 'change' }
             ],
@@ -196,7 +216,7 @@ import * as Moment from 'moment'
       })
       axios.get(R_PRE_URL+'/selectpartybranch.do'
       ).then((res)=> {
-        this.organizationList = res.data
+        this.MasterList = res.data
       }).catch((error)=> {
         console.log(error)
       })
