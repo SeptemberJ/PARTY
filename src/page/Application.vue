@@ -88,7 +88,7 @@
             </Row>
           </FormItem>
           <!-- 思想汇报 -->
-          <FormItem label="思想汇报"  prop="report_img">
+          <FormItem label="入党申请书"  prop="report_img">
               <Row>
                 <Col span="4">
                   <Upload

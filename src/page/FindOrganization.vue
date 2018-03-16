@@ -3,12 +3,12 @@
     <BackBar></BackBar>
     <div class="MainBox">
       <Form ref="formFindOrganization" :model="formFindOrganization" :rules="ruleformFindOrganization" :label-width="100">
-          <FormItem label="是否为党员" prop="ifPartyMmember">
+          <!-- <FormItem label="是否为党员" prop="ifPartyMmember">
               <RadioGroup v-model="formFindOrganization.ifPartyMmember">
                   <Radio label="是"></Radio>
                   <Radio label="否"></Radio>
               </RadioGroup>
-          </FormItem>
+          </FormItem> -->
           <FormItem label="姓名" prop="name">
               <Input type="text" v-model="formFindOrganization.name"></Input>
           </FormItem>
@@ -19,7 +19,9 @@
             </RadioGroup>
           </FormItem>
           <FormItem label="民族" prop="nation">
-              <Input type="text" v-model="formFindOrganization.nation"></Input>
+              <Select v-model="formFindOrganization.nation" style="width:200px">
+                  <Option v-for="item in NationList" :value="item.name" :key="item.id">{{item.name}}</Option>
+              </Select>
           </FormItem>
           <FormItem label="身份证号" prop="id_card">
               <Input type="text" v-model="formFindOrganization.id_card"></Input>
@@ -27,10 +29,17 @@
           <FormItem label="原组织名称" prop="OldOrg">
               <Input type="text" v-model="formFindOrganization.OldOrg"></Input>
           </FormItem>
+
+         <!--  <FormItem label="失联原因" prop="LostReason">
+              <Select v-model="formFindOrganization.LostReason" style="width:200px">
+                  <Option v-for="item in LostReasonList" :value="item.typename" :key="item.typename">{{item.typename}}</Option>
+              </Select>
+          </FormItem> -->
+
           <!-- <FormItem label="转入组织名称" prop="JoinOrg">
               <Input type="text" v-model="formFindOrganization.JoinOrg"></Input>
           </FormItem> -->
-          <FormItem label="加入党组织" prop="JoinOrg">
+          <FormItem label="转入组织名称" prop="JoinOrg">
               <Select v-model="formFindOrganization.JoinOrg" style="width:200px">
                   <Option v-for="item in MasterList" :value="item.fparty" :key="item.id">{{item.fparty}}</Option>
               </Select>
@@ -43,21 +52,24 @@
           <FormItem label="手机号" prop="phone">
               <Input type="text" v-model="formFindOrganization.phone"></Input>
           </FormItem>
-          <FormItem label="工作单位" prop="workUnit">
+          <FormItem label="单位职务" prop="workUnit">
               <Input type="text" v-model="formFindOrganization.workUnit"></Input>
           </FormItem>
           <FormItem label="单位职务" prop="position">
               <Input type="text" v-model="formFindOrganization.position"></Input>
           </FormItem>
-         <!--  <FormItem label="党费缴纳时间" prop="payDate">
+          <FormItem label="党费缴至时间" prop="payDate">
               <DatePicker type="date" placeholder="请选择入学时间" v-model="formFindOrganization.payDate"></DatePicker>
-          </FormItem> -->
+          </FormItem>
           <FormItem label="入党时间" prop="entryPartyTime">
               <DatePicker type="date" placeholder="请选择入学时间" v-model="formFindOrganization.entryPartyTime"></DatePicker>
           </FormItem>
-          <!-- <FormItem label="党员状态" prop="status">
-              <Input type="text" v-model="formFindOrganization.status"></Input>
-          </FormItem> -->
+          <FormItem label="党员状态" prop="status">
+              <Select v-model="formFindOrganization.status" style="width:200px">
+                  <Option v-for="item in statusList" :value="item.typename" :key="item.typename">{{item.typename}}</Option>
+              </Select>
+              <!-- <Input type="text" v-model="formFindOrganization.status"></Input> -->
+          </FormItem>
           <FormItem label="上传资料">
               <Row>
                 <Col span="4">
@@ -78,6 +90,7 @@
                   </Upload>
                 </Col>
               </Row>
+              <p>请上传本人持有的《中国共产党流动党员活动证》、《非公有制经济组织和社会组织党员活动证》的照片或其他材料</p>
           </FormItem>
           <FormItem>
             <Row type="flex" justify="start" class="code-row-bg marginT_10">
@@ -126,24 +139,28 @@ import * as Moment from 'moment'
       return {
         ifLoading:false,
         ifCanChange:'', //是否显示提交按钮
+        statusList:[],
+        NationList:[],
         MasterList:[],
         educationList:[],
+        LostReasonList:[],
         // organizationList:[],
         formFindOrganization: {
-                    ifPartyMmember:'是',
+                    ifPartyMmember:'', //是  否
                     name: '',
                     sex: '',
                     nation: '',
                     id_card: '',
                     OldOrg:'',
+                    LostReason:'',
                     JoinOrg: '',
                     education: '',
                     phone: '',
                     workUnit:'',
                     position: '',
-                    // payDate: '',
+                    payDate: '',
                     entryPartyTime: '',
-                    // status: '',
+                    status: '',
                     file: [],
                     FileName:''
 
@@ -164,6 +181,9 @@ import * as Moment from 'moment'
             // OldOrg: [
             //     { required: true, message: '请输入原组织名称！', trigger: 'change' }
             // ],
+            LostReason: [
+                { required: true, message: '请选择失联原因！', trigger: 'change' }
+            ],
             JoinOrg: [
                 { required: true, message: '请输入转入组织名称！', trigger: 'change' }
             ],
@@ -179,15 +199,15 @@ import * as Moment from 'moment'
             position: [
                 { required: true, message: '请输入手机号！', trigger: 'change' }
             ],
-            // payDate: [
-            //     { required: true, type: 'date', message: '请选择党费缴纳时间！', trigger: 'change' }
-            // ],
+            payDate: [
+                { required: true, type: 'date', message: '请选择党费缴纳时间！', trigger: 'change' }
+            ],
             entryPartyTime: [
                 { required: true, type: 'date', message: '请选择入党时间！', trigger: 'change' }
             ],
-            // status: [
-            //     { required: true, message: '请选择党员状态！', trigger: 'change' }
-            // ],
+            status: [
+                { required: true, message: '请选择党员状态！', trigger: 'change' }
+            ],
             file: [
                 { required: true, message: '请上传资料！', trigger: 'change' }
             ],
@@ -208,6 +228,14 @@ import * as Moment from 'moment'
       
     },
     created() {
+
+      axios.get(PRE_URL+'static/json/Nation.json'
+      ).then((res)=> {
+        this.NationList = res.data.nation
+      }).catch((error)=> {
+        console.log(error)
+      })
+
       axios.get(R_PRE_URL+'/xl.do'
       ).then((res)=> {
         this.educationList = res.data
@@ -220,6 +248,20 @@ import * as Moment from 'moment'
       }).catch((error)=> {
         console.log(error)
       })
+
+      axios.post(R_PRE_URL+'/selectdyzt.do'
+      ).then((res)=> {
+        this.statusList = res.data
+      }).catch((error)=> {
+        console.log(error)
+      })
+
+      // axios.post(R_PRE_URL+'/selectslwhy.do'
+      // ).then((res)=> {
+      //   this.LostReasonList = res.data
+      // }).catch((error)=> {
+      //   console.log(error)
+      // })
       
     },
     computed: {
