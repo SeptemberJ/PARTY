@@ -52,12 +52,12 @@
           <FormItem label="手机号" prop="phone">
               <Input type="text" v-model="formFindOrganization.phone"></Input>
           </FormItem>
-          <FormItem label="单位职务" prop="workUnit">
+          <FormItem label="原单位职务" prop="workUnit">
               <Input type="text" v-model="formFindOrganization.workUnit"></Input>
           </FormItem>
-          <FormItem label="单位职务" prop="position">
+          <!-- <FormItem label="单位职务" prop="position">
               <Input type="text" v-model="formFindOrganization.position"></Input>
-          </FormItem>
+          </FormItem> -->
           <FormItem label="党费缴至时间" prop="payDate">
               <DatePicker type="date" placeholder="请选择入学时间" v-model="formFindOrganization.payDate"></DatePicker>
           </FormItem>
@@ -194,11 +194,11 @@ import * as Moment from 'moment'
                 { required: true, message: '请选择学历！', trigger: 'change' }
             ],
             workUnit: [
-                { required: true, message: '请输入工作单位！', trigger: 'blur' }
+                { required: true, message: '请输入原单位职务！', trigger: 'blur' }
             ],
-            position: [
-                { required: true, message: '请输入手机号！', trigger: 'change' }
-            ],
+            // position: [
+            //     { required: true, message: '请输入手机号！', trigger: 'change' }
+            // ],
             payDate: [
                 { required: true, type: 'date', message: '请选择党费缴纳时间！', trigger: 'change' }
             ],
