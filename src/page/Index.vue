@@ -1,62 +1,111 @@
 <template>
-  <div class="Index" style="background: url('static/img/BgP.jpg'); background-size: 100% 100%;background-repeat: no-repeat;">
-  <!-- <div class="Index" style="background: url('static/img/BgP.jpg');background-attachment: fixed;background-repeat: no-repeat;" :style="backgroundSize:600 300"> -->
-    <div class="FiveModule">
-      <!-- <div style="width: 100%;height: 120px;margin:0 auto;display: block; text-align: center;"> -->
-      <div class="DBlock" >
-      <Row type="flex" justify="space-between" class="code-row-bg" style="">
-          <Col :xs="{ span: 4, offset: 0 }" class="ModuleItem">
-            <img class="ModuleImg" src="static/img/zzfz.png" @click="GoToModule('Application')">
-          </Col>
-          <Col :xs="{ span: 4, offset: 0 }" class="ModuleItem">
-            <img class="ModuleImg" src="static/img/zzgxjz.png" @click="GoToModule('Transfer')">
-          </Col>
-          <Col :xs="{ span: 4, offset: 0 }" class="ModuleItem">
-            <img class="ModuleImg" src="static/img/sjdfsgs.png" @click="GoToModule('OutLink')">
-          </Col>
-          <Col :xs="{ span: 4, offset: 0 }" class="ModuleItem" >
-            <img class="ModuleImg" src="static/img/dygrzx.png" @click="GoToModule('Login')">
-          </Col>
-          <Col :xs="{ span: 4, offset: 0 }" class="ModuleItem">
-            <img class="ModuleImg" src="static/img/ldtyzzz.png" @click="GoToModule('FindOrganization')">
-          </Col>
+  <div class="Index" style="background: url('static/img/Bgimg.jpg'); background-size: 100% 100%;background-repeat: no-repeat;">
+    <div class="modules">
+      <Row type="flex" align="middle"  class="code-row-bg" style="width: 100%;height: 16.666%;">
+        <Col :xs="{ span: 6}" class="ModuleItem ModuleItemSpecial">
+          <Card style="width:100%;height: 100%;" dis-hover :bordered="false">
+            <div style="text-align:center">
+                <img src="static/img/入党申请.png" @click="GoToModule('Application')">
+            </div>
+          </Card>
+        </Col>
       </Row>
-      </div>
-      <div class="DBlock" >
-      <Row type="flex" justify="space-between" class="code-row-bg" style="">
-          <Col :xs="{ span: 4, offset: 0 }" class="ModuleItem">
-            <img class="ModuleImg" src="static/img/fgdtj.png" @click="GoToModule('NotPartyBuild')">
-          </Col>
-          <Col :xs="{ span: 4, offset: 0 }" class="ModuleItem">
-            <img class="ModuleImg" src="static/img/jgdj.png" @click="GoToModule('PartyBuild')">
-          </Col>
-          <Col :xs="{ span: 4, offset: 0 }" class="ModuleItem">
-            <img class="ModuleImg" src="static/img/shyk.png" @click="GoToModule('Learn')">
-          </Col>
-          <Col :xs="{ span: 4, offset: 0 }" class="ModuleItem" >
-            <img class="ModuleImg" src="static/img/zhdjzszx.png" @click="GoToModule('Display')">
-          </Col>
-          <Col :xs="{ span: 4, offset: 0 }" class="ModuleItem">
-            <img class="ModuleImg" src="static/img/dflz.png" @click="GoToModule('DFLZ')">
-          </Col>
+
+      <Row type="flex" justify="center" align="middle"  class="code-row-bg" style="height: 20%;">
+        <Col :xs="{ span: 6}" class="ModuleItem">
+        </Col>
+        <Col :xs="{ span: 6}" class="ModuleItem">
+          <Card style="width:100%;height: 100%;" dis-hover :bordered="false">
+            <div style="text-align:left">
+                <img src="static/img/党建文化长廊.png" @click="GoToModule('djwhcl')">
+            </div>
+          </Card>
+        </Col>
+        <Col :xs="{ span: 6}" class="ModuleItem">
+          <Card style="width:100%;height: 100%;" dis-hover :bordered="false">
+            <div style="text-align:right">
+                <img src="static/img/组织关系接转.png" @click="GoToModule('Transfer')">
+            </div>
+          </Card>
+        </Col>
+        <Col :xs="{ span: 6}" class="ModuleItem">
+        </Col>
       </Row>
-      </div>
-      <!-- <div style="width: 85%;height: auto;margin:0 auto;display: block;">
-      <Row type="flex" justify="space-around" class="code-row-bg"  style="width: auto;height: 150px;margin: 0 auto;">
-          <Col :xs="{ span: 5, offset: 0 }" class="ModuleItem">
-            <img class="ModuleImg" src="static/img/fgdtj.png" @click="GoToModule('NotPartyBuild')">
-          </Col>
-          <Col :xs="{ span: 5, offset: 0 }" class="ModuleItem">
-            <img class="ModuleImg" src="static/img/jgdj.png" @click="GoToModule('PartyBuild')">
-          </Col>
-          <Col :xs="{ span: 5, offset: 0 }" class="ModuleItem">
-            <img class="ModuleImg" src="static/img/shyk.png" @click="GoToModule('Learn')">
-          </Col>
-          <Col :xs="{ span: 5, offset: 0 }" class="ModuleItem" >
-            <img class="ModuleImg" src="static/img/zhdjzszx.png" @click="GoToModule('Display')">
-          </Col>
+
+      <Row type="flex" justify="center" align="middle" class="code-row-bg" style="height: 16.666%;">
+        <Col :xs="{ span: 6}" class="ModuleItem">
+        </Col>
+        <Col :xs="{ span: 6}" class="ModuleItem">
+          <Card style="width:100%;height: 100%;margin-left: -25%" dis-hover :bordered="false">
+            <div style="text-align:left">
+                <img src="static/img/党员学习.png" @click="GoToModule('dyxx')">
+            </div>
+          </Card>
+        </Col>
+        <Col :xs="{ span: 6}" class="ModuleItem">
+          <Card style="width:100%;height: 100%;margin-left: 75%" dis-hover :bordered="false">
+            <div style="text-align:left">
+                <img src="static/img/流动党员找组织.png" @click="GoToModule('FindOrganization')">
+            </div>
+          </Card>
+        </Col>
+        <Col :xs="{ span: 6}" class="ModuleItem">
+        </Col>
       </Row>
-      </div> -->
+
+      <Row type="flex" justify="center" align="middle" class="code-row-bg" style="height: 16.666%;">
+        
+        <Col :xs="{ span: 6}" class="ModuleItem">
+          <Card style="width:100%;height: 100%;" class="specialCardL" dis-hover :bordered="false">
+            <div style="text-align:right">
+                <img src="static/img/党员档案.png" @click="GoToModule('dyda')">
+            </div>
+          </Card>
+        </Col>
+        <Col :xs="{ span: 6}" class="ModuleItem">
+        </Col>
+        <Col :xs="{ span: 6}" class="ModuleItem">
+        </Col>
+        <Col :xs="{ span: 6}" class="ModuleItem">
+          <Card style="width:100%;height: 100%;" class="specialCardR" dis-hover :bordered="false">
+            <div style="text-align:left">
+                <img src="static/img/三会一课.png" @click="GoToModule('Learn')">
+            </div>
+          </Card>
+        </Col>
+        
+      </Row>
+
+      <Row type="flex" justify="center" align="middle"  class="code-row-bg" style="height: 16.666%;">
+        <Col :xs="{ span: 6}" class="ModuleItem">
+        </Col>
+        <Col :xs="{ span: 6}" class="ModuleItem">
+          <Card style="width:100%;height: 100%;" dis-hover :bordered="false">
+            <div style="text-align:left">
+                <img src="static/img/党建要闻.png" @click="GoToModule('djyw')">
+            </div>
+          </Card>
+        </Col>
+        <Col :xs="{ span: 6}" class="ModuleItem">
+          <Card style="width:100%;height: 100%;" dis-hover :bordered="false">
+            <div style="text-align:right">
+                <img src="static/img/个人中心.png" @click="GoToModule('Login')">
+            </div>
+          </Card>
+        </Col>
+        <Col :xs="{ span: 6}" class="ModuleItem">
+        </Col>
+      </Row>
+
+      <Row type="flex" align="middle"  class="code-row-bg" style="width: 100%;height: 16.666%;">
+        <Col :xs="{ span: 6}" class="ModuleItem ModuleItemSpecial">
+          <Card style="width:100%;height: 100%;" dis-hover :bordered="false">
+            <div style="text-align:center">
+                <img src="static/img/党费收缴.png" @click="GoToModule('dfsj')">
+            </div>
+          </Card>
+        </Col>
+      </Row>
     </div>
   </div> 
 
@@ -101,16 +150,6 @@ import {imageUtil} from '../util/utils'
         console.log(error)
       })
     },
-    computed: {
-      
-    },
-    watch: {
-      
-    },
-    components: {
-      
-
-    },
     methods: {
       GoToModule(KIND){
         var _this = this
@@ -131,8 +170,23 @@ import {imageUtil} from '../util/utils'
                 case 'Application':
                 this.$router.push({name:'入党申请'})
                 break
-                case 'Learn':
-                this.$router.push({name:'三会一课'})
+                case 'Learn': 
+                window.location.href = 'http://www.kd0472.com/index.php?g=Wap&m=Index&a=lists&classid=4151&token=dxqrie1491531059&wecha_id=0'
+                break
+                case 'dfsj': 
+                window.location.href = 'http://www.kd0472.com/index.php?g=Wap&m=Index&a=lists&classid=3937&token=dxqrie1491531059&wecha_id=0'
+                break
+                case 'djyw':
+                window.location.href = 'http://www.kd0472.com/index.php?g=Wap&m=Index&a=lists&classid=4097&token=dxqrie1491531059'
+                break
+                case 'dyda':
+                window.location.href = 'http://www.kd0472.com/index.php?g=Wap&m=Index&a=lists&classid=4084&token=dxqrie1491531059&wecha_id=0'
+                break
+                case 'dyxx':
+                window.location.href = 'http://www.kd0472.com/index.php?g=Wap&m=Index&a=lists&classid=4040&token=dxqrie1491531059&wecha_id=0'
+                break
+                case 'djwhcl':
+                window.location.href = 'http://www.expoon.com/e/z1ded1yuzac/panorama?from=timeline'
                 break
                 case 'NotPartyBuild':
                 window.location.href = _this.LINK_fgd
@@ -160,68 +214,60 @@ import {imageUtil} from '../util/utils'
   height: 100%;
   overflow: hidden;
   display: block;
- 
-  .FiveModule{
-    width: 90%;
-    
+  .modules{
+    width: 100%;
+    height:80%;
     display: flex;
     flex-direction: column;
     position: fixed;
-    top: 43%;
-    left: 42%;
-    transform:translate(-50%,-50%);
-    -ms-transform:translate(-50%,-50%);   /* IE 9 */
-    -moz-transform:translate(-50%,-50%);  /* Firefox */
-    -webkit-transform:translate(-50%,-50%); /* Safari 和 Chrome */
-    -o-transform:translate(-50%,-50%);  
-
-  }
-  .DBlock{
-    width: 100%;
-    height: 120px;
-    margin:20px auto auto auto;
-    display: block; 
     text-align: center;
-  }
-  .ivu-row{
-    height: 100%;
-  }
-  .ModuleItem{
-    height:100%;
-    text-align: center;
-  }
-  .ModuleImg{
-      width: 45%;
-      height: auto;
-    }
-  @media screen and (max-width:768px){
-    .ModuleImg{
-      width: 90%;
-      height: auto;
-    }
-    .FiveModule{
-    width: 90%;
-    height:300px;
-    position: fixed;
+    justify-content: space-around;
+    align-items: center;
     top: 50%;
     left: 50%;
     transform:translate(-50%,-50%);
-    -ms-transform:translate(-50%,-50%);   /* IE 9 */
+    -ms-transform:translate(-50%,-50%);  /* IE 9 */
     -moz-transform:translate(-50%,-50%);  /* Firefox */
     -webkit-transform:translate(-50%,-50%); /* Safari 和 Chrome */
-    -o-transform:translate(-50%,-50%);  
-
-  }
-  .DBlock{
-    width: 100%;
-    height: 90px;
-    margin:0px auto;
-    display: block; 
-    text-align: center;
-  }
-  }
-  
-  
-  
+    -o-transform:translate(-50%,-50%);
+    @media screen and (max-width:414px){
+      height:60%;
+    }
+    .ModuleItem{
+      width: 25%;
+      height: 100%;
+      img{
+        width: 60% !important;
+        height: auto;
+      }
+      @media screen and (max-width:414px){
+        img{
+          width: 90% !important;
+          height: auto;
+        }
+        .specialCardL{
+          margin-left: 35%;
+        }
+        .specialCardR{
+          margin-left: -15%;
+        }
+      }
+    }
+    .ModuleItemSpecial{
+      margin-left: 37.5%;
+      height: 100%;
+      img{
+        width: 50% !important;
+        height: auto;
+      }
+    }
+  } 
+}
+.ivu-card-body{
+  padding: 0 10px !important;
+  margin-top: 20px !important;
+}
+.ivu-card{
+  background: transparent !important;
 }
 </style>

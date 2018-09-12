@@ -31,8 +31,8 @@ const routes = [
     {path: '/Learn', name: '三会一课', component: Learn},
     {path: '/VideoDetail/:id', name: '详情', component: VideoDetail},
     {path: '/MemberCenter', name: '党员中心', component: MemberCenter,meta: {requireAuth: true}},
-    {path: '/FindOrganizationPre', name: '流动党员找组织', component: FindOrganizationPre,meta: {requireAuth: true}},
-    {path: '/FindOrganization', name: '流动党员找组织资料填写', component: FindOrganization,meta: {requireAuth: true}},
+    {path: '/FindOrganizationPre', name: '流动党员找组织', component: FindOrganizationPre},
+    {path: '/FindOrganization', name: '流动党员找组织资料填写', component: FindOrganization},
       {path:'*', redirect: '/Index'}
       // {path: '/article/:id', name: 'article', component: Article},
     ]
