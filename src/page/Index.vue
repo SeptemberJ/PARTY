@@ -1,13 +1,39 @@
 <template>
   <div class="Index" style="background: url('static/img/Bgimg.jpg'); background-size: 100% 100%;background-repeat: no-repeat;">
     <div class="modules">
-      <Row type="flex" align="middle"  class="code-row-bg" style="width: 100%;height: 16.666%;">
-        <Col :xs="{ span: 6}" class="ModuleItem ModuleItemSpecial">
-          <Card style="width:100%;height: 100%;" dis-hover :bordered="false">
+      <!-- <Row type="flex" justify="center" align="middle"  class="code-row-bg" style="width: 100%;height: 16.666%;">
+        <Col :xs="{ span: 6}" class="ModuleItem">
+        </Col>
+        <Col :xs="{ span: 6}" class="ModuleItem">
+          <Card style="width:100%;height: 100%;margin-left: 50%;" dis-hover :bordered="false">
             <div style="text-align:center">
                 <img src="static/img/入党申请.png" @click="GoToModule('Application')">
             </div>
           </Card>
+        </Col>
+        <Col :xs="{ span: 6}" class="ModuleItem">
+        </Col>
+        <Col :xs="{ span: 6}" class="ModuleItem">
+        </Col>
+      </Row> -->
+      <Row type="flex" justify="center" align="middle"  class="code-row-bg" style="height: 16.666%;">
+        <Col :xs="{ span: 6}" class="ModuleItem">
+        </Col>
+        <Col :xs="{ span: 6}" class="ModuleItem">
+          <Card style="width:100%;height: 100%;opacity: 0" dis-hover :bordered="false">
+            <div style="text-align:center">
+                <img src="static/img/入党申请.png" @click="GoToModule('Application')">
+            </div>
+          </Card>
+        </Col>
+        <Col :xs="{ span: 6}" class="ModuleItem">
+          <Card style="width:100%;height: 100%;margin-left: -50%;" dis-hover :bordered="false">
+            <div style="text-align:center">
+                <img src="static/img/入党申请.png" @click="GoToModule('Application')">
+            </div>
+          </Card>
+        </Col>
+        <Col :xs="{ span: 6}" class="ModuleItem">
         </Col>
       </Row>
 
@@ -17,7 +43,7 @@
         <Col :xs="{ span: 6}" class="ModuleItem">
           <Card style="width:100%;height: 100%;" dis-hover :bordered="false">
             <div style="text-align:left">
-                <img src="static/img/党建文化长廊.png" @click="GoToModule('djwhcl')">
+                <img src="static/img/党费收缴.png" @click="GoToModule('dfsj')">
             </div>
           </Card>
         </Col>
@@ -38,14 +64,14 @@
         <Col :xs="{ span: 6}" class="ModuleItem">
           <Card style="width:100%;height: 100%;margin-left: -25%" dis-hover :bordered="false">
             <div style="text-align:left">
-                <img src="static/img/党员学习.png" @click="GoToModule('dyxx')">
+                <img style="z-index:9999;position: relative"  src="static/img/党员学习.png" @click="GoToModule('dyxx')">
             </div>
           </Card>
         </Col>
         <Col :xs="{ span: 6}" class="ModuleItem">
           <Card style="width:100%;height: 100%;margin-left: 75%" dis-hover :bordered="false">
             <div style="text-align:left">
-                <img src="static/img/流动党员找组织.png" @click="GoToModule('FindOrganization')">
+                <img style="z-index:9999;position: relative" src="static/img/流动党员找组织.png" @click="GoToModule('FindOrganization')">
             </div>
           </Card>
         </Col>
@@ -54,6 +80,27 @@
       </Row>
 
       <Row type="flex" justify="center" align="middle" class="code-row-bg" style="height: 16.666%;">
+        <Col :xs="{ span: 6}" class="ModuleItem">
+        </Col>
+        <Col :xs="{ span: 6}" class="ModuleItem">
+          <Card style="width:100%;height: 100%;margin-left: -25%" dis-hover :bordered="false">
+            <div style="text-align:left">
+                <img src="static/img/党员档案.png" @click="GoToModule('dyda')">
+            </div>
+          </Card>
+        </Col>
+        <Col :xs="{ span: 6}" class="ModuleItem">
+          <Card style="width:100%;height: 100%;margin-left: 75%" dis-hover :bordered="false">
+            <div style="text-align:left">
+                <img src="static/img/三会一课.png" @click="GoToModule('Learn')">
+            </div>
+          </Card>
+        </Col>
+        <Col :xs="{ span: 6}" class="ModuleItem">
+        </Col>
+      </Row>
+
+     <!--  <Row type="flex" justify="center" align="middle" class="code-row-bg" style="height: 16.666%;">
         
         <Col :xs="{ span: 6}" class="ModuleItem">
           <Card style="width:100%;height: 100%;" class="specialCardL" dis-hover :bordered="false">
@@ -74,7 +121,7 @@
           </Card>
         </Col>
         
-      </Row>
+      </Row> -->
 
       <Row type="flex" justify="center" align="middle"  class="code-row-bg" style="height: 16.666%;">
         <Col :xs="{ span: 6}" class="ModuleItem">
@@ -97,7 +144,27 @@
         </Col>
       </Row>
 
-      <Row type="flex" align="middle"  class="code-row-bg" style="width: 100%;height: 16.666%;">
+      <Row type="flex" justify="center" align="middle"  class="code-row-bg" style="height: 16.666%;">
+        <Col :xs="{ span: 6}" class="ModuleItem">
+        </Col>
+        <Col :xs="{ span: 6}" class="ModuleItem">
+          <Card style="width:100%;height: 100%;" dis-hover :bordered="false">
+            <div style="text-align:center">
+                <img src="static/img/党建文化长廊.png" @click="GoToModule('djwhcl')">
+            </div>
+          </Card>
+        </Col>
+        <Col :xs="{ span: 6}" class="ModuleItem">
+          <Card style="width:100%;height: 100%;" dis-hover :bordered="false">
+            <div style="text-align:center">
+                <img src="static/img/VRZT.png" @click="GoToModule('VRZT')">
+            </div>
+          </Card>
+        </Col>
+        <Col :xs="{ span: 6}" class="ModuleItem">
+        </Col>
+      </Row>
+      <!-- <Row type="flex" align="middle"  class="code-row-bg" style="width: 100%;height: 16.666%;">
         <Col :xs="{ span: 6}" class="ModuleItem ModuleItemSpecial">
           <Card style="width:100%;height: 100%;" dis-hover :bordered="false">
             <div style="text-align:center">
@@ -105,7 +172,7 @@
             </div>
           </Card>
         </Col>
-      </Row>
+      </Row> -->
     </div>
   </div> 
 
@@ -188,6 +255,9 @@ import {imageUtil} from '../util/utils'
                 case 'djwhcl':
                 window.location.href = 'http://www.expoon.com/e/z1ded1yuzac/panorama?from=timeline'
                 break
+                case 'VRZT':
+                window.location.href = 'http://www.kuleiman.com/kuleiman/101014/index.html'
+                break
                 case 'NotPartyBuild':
                 window.location.href = _this.LINK_fgd
                 break
@@ -234,7 +304,6 @@ import {imageUtil} from '../util/utils'
       height:60%;
     }
     .ModuleItem{
-      width: 25%;
       height: 100%;
       img{
         width: 60% !important;
